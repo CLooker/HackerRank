@@ -7,7 +7,7 @@ jumpingOnClouds = c => (c.reduce(({ jumps, i }, _, index) => (
       ? {jumps: ++jumps, i: i += 2} 
       : {jumps: ++jumps, i: ++i} 
     : {jumps, i}), {jumps: -1, i: 0}).jumps
- )
+)
 
 // imperative
 function jumpingOnClouds(c) {
