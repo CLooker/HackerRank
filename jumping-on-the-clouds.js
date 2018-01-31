@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/jumping-on-the-clouds/problem
 
-// declarative, immutableconst 
-jumpingOnClouds = c => (c.reduce(({ jumps, i }, _, index) => (
+// declarative, immutable 
+const jumpingOnClouds = c => (c.reduce(({ jumps, i }, _, index) => (
   index === i 
     ? c[index + 2] === 0 
       ? {jumps: ++jumps, i: i += 2} 
