@@ -1,13 +1,15 @@
 // https://www.hackerrank.com/challenges/cats-and-a-mouse/problem
 
 function catAndMouse(x, y, z) {
-  let mouseADistance = Math.abs(z - x);
-  let mouseBDistance = Math.abs(z - y);
+  const mouseADistance = Math.abs(z - x);
+  const mouseBDistance = Math.abs(z - y);
+  let answer = [];
   if (mouseADistance < mouseBDistance) {
-    console.log('Cat A');
+    answer = answer.concat('Cat A');
   } else if (mouseADistance > mouseBDistance) {
-    console.log('Cat B');
+    answer = answer.concat('Cat B');
   } else {
-    console.log('Mouse C');
+    answer = answer.concat('Mouse C');
   }
+  return answer;
 }
