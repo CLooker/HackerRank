@@ -1,16 +1,11 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem
 
 function breakingRecords(scores) {
-  let e = scores.reduce((recordsObj, s, index) => {
-    index === 0 ?
-      (
-        recordsObj.low = s,
-        recordsObj.high = s
-      ) :
-      null;
-    s < recordsObj.low ? (recordsObj.low = s, recordsObj.lowCounter++) : null;
-    s > recordsObj.high ? (recordsObj.high = s, recordsObj.highCounter++) : null;
-    return recordsObj;
+  let e = scores.reduce(({ low, lowCounter, high, highCounter }, s, index) => {
+     if (index === 0) {low = s; high = s}
+     if (s < low) {low = s; lowCounter += 1}
+     if (s > high) {high = s; highCounter += 1}
+     return {low, lowCounter, high, highCounter};
   }, {
     low: 0,
     lowCounter: 0,
