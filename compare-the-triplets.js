@@ -1,5 +1,5 @@
 
-// https://www.hackerrank.com/challenges/compare-the-triplets/submissions/code/63227776
+// https://www.hackerrank.com/challenges/compare-the-triplets/problem
 
 function solve(a0, a1, a2, b0, b1, b2) {
   const args = [
