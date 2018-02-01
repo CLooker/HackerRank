@@ -5,7 +5,7 @@ const beautifulDays = (i, j, k) => (
   .reduce((days, _, ind) => days.push(ind + i) && days, [])
   .reduce((answer, num, ind) => (
     Number.isInteger(Math.abs(num - parseInt(num.toString().split("").reverse().join(""))) / k) ?
-    (answer = answer + 1) && answer :
+    ++answer :
     answer
   ), 0)
 )
