@@ -2,9 +2,9 @@
 
 const breakingRecords = scores => (
   scores.reduce(({ high, low, answer }, s, index) => {
-     if (index === 0) {low = s; high = s}
-     if (s < low) {low = s; ++answer[1]}
+     if (index === 0) {high = s; low = s}
      if (s > high) {high = s; ++answer[0]}
+     if (s < low) {low = s; ++answer[1]}
      return {low, high, answer};
   }, {
     high: 0,
