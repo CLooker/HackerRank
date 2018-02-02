@@ -1,4 +1,4 @@
-// https://www.hackerrank.com/challenges/sock-merchant/problem
+// https://www.hackerrank.com/challenges/drawing-book/problem
 
 function solve(n, p){
     let fromFront = () => {
