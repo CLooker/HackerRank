@@ -1,14 +1,15 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem
 
-function getMoneySpent(keyboards, drives, s) {
-  let answer = (
+const getMoneySpent = (keyboards, drives, s) => {
+  const answer = (
     keyboards
-    .reduce((possibleTotals, k) => {
-      drives.forEach(d => possibleTotals.push(k + d));
-      return possibleTotals
-    }, [])
+    .reduce((possibleTotals, k) => (
+      drives.reduce((possibleTotals, d) => possibleTotals.push(k + d) && possibleTotals, possibleTotals)
+    ), [])
     .filter(t => t <= s)
-    .sort((a, b) => b - a)[0]);
+    .sort((a, b) => b - a)[0]
+  );
 
   return answer ? answer : -1;
 }
+
