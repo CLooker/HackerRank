@@ -9,9 +9,9 @@ function nextFiveMultiple(grade) {
   return i;
 }
 
-function solve(grades) {
-  const example = grades.map(grade => {
-    let nextFiveMultipleReturned = nextFiveMultiple(grade);
+const solve = grades => (
+  grades.map(grade => {
+    const nextFiveMultipleReturned = nextFiveMultiple(grade);
     if (grade < 38) {
       return grade;
     } else if ((nextFiveMultipleReturned - grade) < 3) {
@@ -20,4 +20,4 @@ function solve(grades) {
       return grade;
     }
   }).forEach(grade => console.log(grade))
-}
+)
