@@ -20,7 +20,7 @@ function solve(n, p){
         if (pages[0] !== p && pages[1] !== p) {
             do {
                 pages = setPages(pages[1] - 2);
-                turnCounter = turnCounter + 1;
+                ++turnCounter;
             }
             while (pages[0] !== p && pages[1] !== p)
         }       
