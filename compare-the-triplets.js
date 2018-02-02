@@ -3,12 +3,12 @@
 
 // fancy
 const solve = (a0, a1, a2, b0, b1, b2) =>
-  [[a0, b0], [a1, b1], [a2, b2]]
-    .reduce((ans, scorePairArr) =>
+  [[a0, b0], [a1, b1], [a2, b2]].reduce(
+    (ans, scorePairArr) =>
       scorePairArr[0] > scorePairArr[1]
         ? [++ans[0], ans[1]]
-        : scorePairArr[0] < scorePairArr[1] ? [ans[0], ++ans[1]] : ans
-      , [0, 0]
+        : scorePairArr[0] < scorePairArr[1] ? [ans[0], ++ans[1]] : ans,
+    [0, 0]
   );
 
 // regular
