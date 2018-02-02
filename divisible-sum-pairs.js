@@ -1,16 +1,11 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem
 
-function divisibleSumPairs(n, k, ar) {
-  const targetDivisor = k;
-  return ar.reduce((result, item, index) => {
+const divisibleSumPairs = (n, k, ar) => (
+  ar.reduce((result, item, index) => {
     let tempSumList = []
     for (let i = index + 1; i < ar.length; i++) {
-      let tempSum = item;
-      tempSum = tempSum + ar[i];
-      tempSum % targetDivisor === 0 ?
-        tempSumList.push([index, i]) :
-        null;
+      ((item + ar[i]) % k === 0) && (tempSumList = [...tempSumList, [index, i]]);
     }
-    return result = result + tempSumList.length;
-  }, 0);
-}
+    return result += tempSumList.length;
+  }, 0)
+)
