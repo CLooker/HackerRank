@@ -1,25 +1,21 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem
 
 function kangaroo(x1, v1, x2, v2) {
-  let xLocation = x1;
-  let yLocation = x2;
-  let xJump = v1;
-  let yJump = v2;
-  if ((xLocation > yLocation && xJump >= yJump) || (yLocation > xLocation && yJump >= xJump)) {
+  if ((x1 > x2 && v1 >= v2) || (x2 > x1 && v2 >= v1)) {
     return "NO";
   } else {
-    if (xLocation > yLocation) {
-      while (xLocation > yLocation) {
-        xLocation += xJump;
-        yLocation += yJump;
+    if (x1 > x2) {
+      while (x1 > x2) {
+        x1 += v1;
+        x2 += v2;
       }
-      return xLocation === yLocation ? "YES" : "NO";
-    } else if (yLocation > xLocation) {
-      while (yLocation > xLocation) {
-        xLocation += xJump;
-        yLocation += yJump;
+      return x1 === x2 ? "YES" : "NO";
+    } else if (x2 > x1) {
+      while (x2 > x1) {
+        x1 += v1;
+        x2 += v2;
       }
-      return xLocation === yLocation ? "YES" : "NO";
+      return x1 === x2 ? "YES" : "NO";
     }
   }
 }
