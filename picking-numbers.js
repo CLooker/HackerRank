@@ -1,23 +1,35 @@
 // https://www.hackerrank.com/challenges/picking-numbers/problem
 
-const pickingNumbers = a =>
-  a
-    .reduce((store, num, index) => {
-      let tempStore = [num];
-      Array.from(Array(a.length)).forEach((_, i) => {
-        if (i !== index) {
-          let flag = true;
-          tempStore.forEach(n => Math.abs(n - a[i]) > 1 && (flag = false));
-          flag === true && (tempStore = [...tempStore, a[i]]);
+// imperative
+const pickingNumbers = a => {
+  let store = [];
+  for (let i = 0; i < a.length; i++) {
+    let tempStore = [a[i]];
+    for (let j = 0; j < a.length; j++) {
+      if (i !== j) {
+        let flag = true;
+        for (let k = 0; k < tempStore.length; k++) {
+          if (Math.abs(tempStore[k] - a[j]) > 1) {
+            flag = false;
+          }
         }
-      });
-      return [...store, tempStore];
-    }, [])
-    .reduce(
-      (ans, item) => (item.length > ans ? (ans = item.length || ans) : ans),
-      0
-    );
+        if (flag === true) {
+          tempStore = [...tempStore, a[j]];
+        }
+      }
+    }
+    store = [...store, tempStore];
+  }
+  let ans = 0;
+  for (let i = 0; i < store.length; i++) {
+    if (store[i].length > ans) {
+      ans = store[i].length;
+    }
+  }
+  return ans;
+};
 
+// declarative, immutable, implicit returns
 const pickingNumbers = a =>
   a
     .reduce(
