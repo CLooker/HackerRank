@@ -22,3 +22,24 @@ function equalizeArray(arr) {
     })
     return arr.length - biggestTempColl;
 }
+
+// probably not as readable, but immutable, implicit returns
+const equalizeArray = arr =>
+  arr.length -
+  Array.from(Array(arr.length))
+    .reduce(
+      (coll, _, i) =>
+        Array.from(Array(arr.length))
+          .reduce(
+            (tempColl, _, j) =>
+              arr[j] === arr[i]
+                ? ((tempColl = [...tempColl, arr[j]]), (coll = [...coll, tempColl]), tempColl)
+                : tempColl, 
+            []
+          ) && coll, 
+      []
+    )
+    .reduce(
+      (biggestTempColl, tempColl, index) =>
+        tempColl.length > biggestTempColl ? tempColl.length : biggestTempColl, 0
+    );
