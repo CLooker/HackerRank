@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/picking-numbers/problem
 
-// imperative, mutable
+// imperative, mutable, explicit return
 function pickingNumbers(a) {
   let store = [];
   for (let i = 0; i < a.length; i++) {
