@@ -1,25 +1,28 @@
 
 // https://www.hackerrank.com/challenges/plus-minus/problem
 
+// imperative, mutable
 function plusMinus(arr) {
-  const plusMinusCount = arr.reduce(
-    (plusMinusCount, n) => {
-      if (n > 0) {
-        ++plusMinusCount.posCount;
-      } else if (n < 0) {
-        ++plusMinusCount.negCount;
-      } else {
-        ++plusMinusCount.zeroCount;
-      }
-      return plusMinusCount;
-    },
-    { posCount: 0, negCount: 0, zeroCount: 0 }
+  let plusCounter = 0;
+  let minusCounter = 0;
+  let zeroCounter = 0;
+  const length = arr.length;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > 0) {
+      ++plusCounter;
+    } else if (arr[i] < 0) {
+      ++minusCounter;
+    } else {
+      ++zeroCounter;
+    }
+  }
+
+  console.log(
+    `${plusCounter / length}\n${minusCounter / length}\n${zeroCounter / length}`
   );
-  console.log(plusMinusCount.posCount / arr.length);
-  console.log(plusMinusCount.negCount / arr.length);
-  console.log(plusMinusCount.zeroCount / arr.length);
 }
 
+// declarative, immutable
 const plusMinus = arr => {
   const plusMinusCount = arr.reduce(
     ({ posCount, negCount, zeroCount }, n) =>
