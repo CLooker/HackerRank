@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/picking-numbers/problem
 
-// imperative
-const pickingNumbers = a => {
+// imperative, mutable
+function pickingNumbers(a) {
   let store = [];
   for (let i = 0; i < a.length; i++) {
     let tempStore = [a[i]];
@@ -27,11 +27,6 @@ const pickingNumbers = a => {
     }
   }
   return ans;
-};h > ans) {
-            ans = store[i].length;
-        }
-    }
-    return ans;
 }
 
 // declarative, immutable, implicit returns
