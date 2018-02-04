@@ -14,11 +14,11 @@ const pickingNumbers = a => {
           }
         }
         if (flag === true) {
-          tempStore = [...tempStore, a[j]];
+          tempStore.push(a[j]);
         }
       }
     }
-    store = [...store, tempStore];
+    store.push(tempStore);
   }
   let ans = 0;
   for (let i = 0; i < store.length; i++) {
@@ -27,7 +27,12 @@ const pickingNumbers = a => {
     }
   }
   return ans;
-};
+};h > ans) {
+            ans = store[i].length;
+        }
+    }
+    return ans;
+}
 
 // declarative, immutable, implicit returns
 const pickingNumbers = a =>
