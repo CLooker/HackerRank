@@ -37,7 +37,4 @@ const equalizeArray = arr =>
           ) && coll, 
       []
     )
-    .reduce(
-      (biggestTempColl, tempColl, index) =>
-        tempColl.length > biggestTempColl ? tempColl.length : biggestTempColl, 0
-    );
+    .reduce((biggestTempColl, tempColl, index) => tempColl.length > biggestTempColl ? tempColl.length : biggestTempColl, 0);
