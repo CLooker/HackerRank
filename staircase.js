@@ -26,16 +26,26 @@ const staircase = n =>
     )
     .forEach(stair => console.log(stair));
 
+// imperative, mutable
 function staircase(n) {
-  Array.from(Array(n)).forEach((_, index) => {
-    let temp = "";
-    for (let i = n; i > 0; i--) {
-      if (i >= (n - index)) {
-        temp += '#';
+  let stairs = [];
+  for (let i = 0; i < n; i++) {
+    let stair = "";
+    for (let j = n; j > 0; j--) {
+      if (j >= n - i) {
+        stair += "#";
       } else {
-        temp += " ";
+        stair += " ";
       }
     }
-    console.log(temp.split("").reverse().join(""));
-  });
+    stairs.push(stair);
+  }
+  for (let i = 0; i < stairs.length; i++) {
+    console.log(
+      stairs[i]
+        .split("")
+        .reverse()
+        .join("")
+    );
+  }
 }
