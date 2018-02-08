@@ -8,7 +8,7 @@ const staircase = n =>
         stairs: [
           ...stairs,
           Array.from(Array(n)).reduce(
-            ({ stair, j }, _, __) =>
+            ({ stair, j }) =>
               j >= n - i
                 ? { stair: (stair += "#"), j: --j }
                 : { stair: (stair += " "), j: --j },
