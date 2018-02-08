@@ -4,15 +4,15 @@
 const staircase = n =>
   Array.from(Array(n))
     .reduce(
-      ({ stairs }, _, index) => ({
+      ({ stairs }, _, i) => ({
         stairs: [
           ...stairs,
           Array.from(Array(n)).reduce(
-            ({ stair, k }, _, j) =>
-              k >= n - index
-                ? { stair: (stair += "#"), k: --k }
-                : { stair: (stair += " "), k: --k },
-            { stair: "", k: n }
+            ({ stair, j }, _, __) =>
+              j >= n - i
+                ? { stair: (stair += "#"), j: --j }
+                : { stair: (stair += " "), j: --j },
+            { stair: "", j: n }
           ).stair
         ]
       }),
