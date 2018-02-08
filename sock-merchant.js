@@ -1,17 +1,19 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem
 
-const sockMerchant = (n, ar) => (
-  ar.reduce((total, sock, i) => {
-    const firstSock = sock;
-    for (let j = i + 1; j < ar.length; j++) {
-      if (ar[j] === firstSock) {
-        (++total) && (ar[j] = NaN)
-        break;
-      }
-    }
-    return total;
-  }, 0)
-)
+// declarative
+const sockMerchant = (n, ar) =>
+  ar.reduce(
+    ({ total, j }, targetSock, i) => (
+      ar.forEach((_, k) => {
+        j === k &&
+          (ar[j] === targetSock
+            ? (++total, (ar[j] = NaN), (j = -1))
+            : j === -1 || ++j);
+      }),
+      { total, j: (i += 2) }
+    ),
+    { total: 0, j: 1 }
+  ).total;
 
 // imperative, mutable
 function sockMerchant(n, ar) {
