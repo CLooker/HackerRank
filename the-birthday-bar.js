@@ -1,11 +1,25 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem
 
-function solve(n, s, d, m) {
-  return s.reduce((result, item, index) => {
-    let tempSum = 0;
-    for (let i = index; i < index + m; i++) {
-      tempSum = tempSum + s[i];
+const solve = (n, s, d, m) => (
+  s.reduce(({ result, tempSum }, item, i) => {
+    for (let j = i; j < i + m; j++) {
+      tempSum += s[j];
     }
-    return tempSum === d ? result = result + 1 : result;
-  }, 0);
+    return tempSum === d ? {result: ++result, tempSum: 0} : {result, tempSum: 0};
+  }, {result: 0, tempSum: 0}).result
+)
+
+// imperative
+function solve(n, s, d, m) {
+  let result = 0;
+  for (let i = 0; i < s.length; i++) {
+    let tempSum = 0;
+    for (let j = i; j < i + m; j++) {
+      tempSum += s[j];
+    }
+    if (tempSum === d) {
+      ++result;
+    }
+  }
+  return result;
 }
