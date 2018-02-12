@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/counting-valleys/problem
 
-// declarative
+// declarative, implicit return
 const countingValleys = (n, s) =>
   s.split("").reduce(
     ({ pos, vSteps, valleys }, step) => {
@@ -12,7 +12,7 @@ const countingValleys = (n, s) =>
     { pos: 0, vSteps: 0, valleys: 0 }
   ).valleys;
 
-// imperative
+// imperative, explicit return
 function countingValleys(n, s) {
   let pos = 0;
   let vSteps = 0;
