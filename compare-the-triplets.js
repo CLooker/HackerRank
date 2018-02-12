@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem
 
-// declarative
+// declarative, immutable, implict return
 const solve = (a0, a1, a2, b0, b1, b2) =>
   [[a0, b0], [a1, b1], [a2, b2]].reduce(
     (ans, scorePairArr) =>
@@ -10,7 +10,7 @@ const solve = (a0, a1, a2, b0, b1, b2) =>
     [0, 0]
   );
 
-// imperative
+// imperative, mutable, explicit return
 function solve(a0, a1, a2, b0, b1, b2) {
   const args = [[a0, b0], [a1, b1], [a2, b2]];
   let playerA = 0;
