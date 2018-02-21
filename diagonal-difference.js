@@ -14,7 +14,7 @@ const secondaryDiagonolSum = secondaryDiagonolArr =>
 const diagonalDifference = a =>
   Math.abs(
     primaryDiagonolSum(primaryDiagonol(a)) -
-      secondaryDiagonolSum(secondaryDiagonol(a))
+    secondaryDiagonolSum(secondaryDiagonol(a))
   );
 
 
