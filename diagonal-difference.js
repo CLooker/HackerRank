@@ -15,6 +15,7 @@ const diagonalDifference = a =>
   Math.abs(
     primaryDiagonolSum(primaryDiagonol(a)) -
       secondaryDiagonolSum(secondaryDiagonol(a))
+  );
 
 
 // declarative, immutable
