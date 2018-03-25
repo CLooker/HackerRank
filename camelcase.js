@@ -1,7 +1,8 @@
 // https://www.hackerrank.com/challenges/camelcase/problem
+// This exercise times out when using immutable data structures
 
-function camelcase(s) {
-  let indices = s
+const getIndicesColl = coll =>
+  coll
     .split("")
     .reduce(
       (indices, l, i) =>
@@ -9,10 +10,12 @@ function camelcase(s) {
       [0]
     );
 
-  let wordsColl = [];
-  indices.forEach((idx, i) => {
-    wordsColl.push(s.substring(idx, indices[i + 1]));
-  });
+const getWordColl = (originalStr, indicesColl) =>
+  indicesColl.reduce(
+    (wordsColl, idx, i) =>
+      wordsColl.push(originalStr.substring(idx, indicesColl[i + 1])) &&
+      wordsColl,
+    []
+  );
 
-  return wordsColl.length;
-}
+const camelcase = s => getWordColl(s, getIndicesColl(s)).length;
