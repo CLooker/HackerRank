@@ -2,27 +2,27 @@
 
 // imperative, mutative
 function gridChallenge(grid) {
-  let newGrid = [];
+  let gridWithOrderedRows = [];
 
   for (let i = 0; i < grid.length; i++) {
-    const sequence = grid[i];
-    const orderedSequence = sequence
+    const row = grid[i];
+    const orderedRow = row
       .split('')
       .sort()
       .join('');
-    newGrid.push(orderedSequence);
+    gridWithOrderedRows.push(orderedRow);
   }
 
   let answer = 'YES';
 
-  for (let i = 0; i < newGrid.length; i++) {
-    const sequence = newGrid[i];
-    for (let j = 0; j < sequence.length; j++) {
-      const sequenceLetter = sequence[j];
-      for (let k = i + 1; k < newGrid.length; k++) {
-        const otherSequence = newGrid[k];
-        const otherSequenceLetter = otherSequence[j];
-        if (otherSequenceLetter < sequenceLetter) {
+  for (let i = 0; i < gridWithOrderedRows.length; i++) {
+    const row = gridWithOrderedRows[i];
+    for (let j = 0; j < row.length; j++) {
+      const letter = row[j];
+      for (let k = i + 1; k < gridWithOrderedRows.length; k++) {
+        const otherRow = gridWithOrderedRows[k];
+        const otherLetter = otherRow[j];
+        if (otherLetter < letter) {
           answer = 'NO';
           break;
         }
@@ -35,26 +35,26 @@ function gridChallenge(grid) {
 
 // more declarative
 const gridChallenge = grid => {
-  const newGrid = grid.map(seq =>
-    seq
+  const gridWithOrderedRows = grid.map(row =>
+    row
       .split('')
       .sort()
       .join('')
   );
 
-  return newGrid.reduce(
-    (answer, seq, i) =>
+  return gridWithOrderedRows.reduce(
+    (answer, row, i) =>
       answer === 'NO'
         ? answer
-        : seq.split('').reduce((localAnswer, letter, j) => {
+        : row.split('').reduce((localAnswer, letter, j) => {
             if (localAnswer === 'NO') {
               return localAnswer;
             }
 
-            for (let k = i + 1; k < newGrid.length; k++) {
-              const otherSeq = newGrid[k];
-              const otherSeqLetter = otherSeq[j];
-              if (otherSeqLetter < letter) {
+            for (let k = i + 1; k < gridWithOrderedRows.length; k++) {
+              const otherRow = gridWithOrderedRows[k];
+              const otherLetter = otherRow[j];
+              if (otherLetter < letter) {
                 return 'NO';
               }
             }
@@ -63,4 +63,33 @@ const gridChallenge = grid => {
           }, null),
     null
   );
+};
+
+// mixture that might be easiest to read
+const gridChallenge = grid => {
+  const gridWithOrderedRows = grid.map(seq =>
+    seq
+      .split('')
+      .sort()
+      .join('')
+  );
+
+  let answer = 'YES';
+
+  gridWithOrderedRows.forEach((row, i) => {
+    row.split('').forEach((letter, j) => {
+      // use for loop because counter is non-standard
+      // for loop is probably easier to read than alternatives
+      for (let k = i + 1; k < gridWithOrderedRows.length; k++) {
+        const otherRow = gridWithOrderedRows[k];
+        const otherLetter = otherRow[j];
+        if (otherLetter < letter) {
+          answer = 'NO';
+          break;
+        }
+      }
+    });
+  });
+
+  return answer;
 };
