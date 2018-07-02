@@ -6,8 +6,8 @@ function appendAndDelete(s, t, k) {
   const identicalStringsSatisfyK = (() => {
     const stringsAreIdentical = s === t;
     const kCanBeSatisfied = k % 1 === 0;
-    const matchIsPossilbe = stringsAreIdentical && kCanBeSatisfied;
-    return matchIsPossilbe;
+    const matchIsPossible = stringsAreIdentical && kCanBeSatisfied;
+    return matchIsPossible;
   })();
 
   if (identicalStringsSatisfyK) {
