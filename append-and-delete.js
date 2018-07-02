@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/append-and-delete/problem
 
-// orgainze code into named IIFE's
+// organize code into named IIFE's
 // and named conditions for increased readability
 function appendAndDelete(s, t, k) {
   const identicalStringsSatisfyK = (() => {
