@@ -1,4 +1,4 @@
-// https://www.hackerrank.com/challenges/lisa-workbook/problem
+// // https://www.hackerrank.com/challenges/lisa-workbook/problem
 
 function workbook(_, maxProbsPerPage, arr) {
   const pageToProbsDict = (() => {
@@ -37,17 +37,16 @@ function workbook(_, maxProbsPerPage, arr) {
     return pageToProbs;
   })();
 
-  const specialProbsTotal = Object.entries(pageToProbsDict).reduce(
-    (total, [page, probColl]) => {
-      const localTotal = probColl.reduce((localT, prob) => {
-        const specialProbExists = Number(prob) === Number(page);
-        return specialProbExists ? ++localT : localT;
-      }, 0);
+  let specialProbsCount = 0;
 
-      return (total += localTotal);
-    },
-    0
-  );
+  Object.entries(pageToProbsDict).forEach(([page, probColl]) => {
+    probColl.forEach(prob => {
+      const specialProbExists = Number(prob) === Number(page);
+      if (specialProbExists) {
+        specialProbsCount++;
+      }
+    });
+  });
 
-  return specialProbsTotal;
+  return specialProbsCount;
 }
