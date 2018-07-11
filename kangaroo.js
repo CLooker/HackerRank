@@ -1,21 +1,61 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem
 
-function kangaroo(x1, v1, x2, v2) {
-  if ((x1 > x2 && v1 >= v2) || (x2 > x1 && v2 >= v1)) {
-    return "NO";
-  } else {
-    if (x1 > x2) {
-      while (x1 > x2) {
-        x1 += v1;
-        x2 += v2;
-      }
-      return x1 === x2 ? "YES" : "NO";
-    } else if (x2 > x1) {
-      while (x2 > x1) {
-        x1 += v1;
-        x2 += v2;
-      }
-      return x1 === x2 ? "YES" : "NO";
+// more code, but probably more quickly understood
+const kangaroo = (xLocation, xJumpSize, yLocation, yJumpSize) => {
+  const cannotCatchUp = (() => {
+    const xStartsAhead = xLocation > yLocation;
+    const yJumpsTooSmall = xJumpSize >= yJumpSize;
+    const yCannotCatchUp = xStartsAhead && yJumpsTooSmall;
+
+    const yStartsAhead = yLocation > xLocation;
+    const xJumpsTooSmall = yJumpSize >= xJumpSize;
+    const xCannotCatchUp = yStartsAhead && xJumpsTooSmall;
+
+    return xCannotCatchUp || yCannotCatchUp;
+  })();
+
+  if (cannotCatchUp) {
+    return 'NO';
+  }
+
+  const xStartsAhead = xLocation > yLocation;
+  const yStartsAhead = yLocation > xLocation;
+
+  if (xStartsAhead) {
+    while (xLocation > yLocation) {
+      xLocation += xJumpSize;
+      yLocation += yJumpSize;
     }
+  } else if (yStartsAhead) {
+    while (yLocation > xLocation) {
+      xLocation += xJumpSize;
+      yLocation += yJumpSize;
+    }
+  }
+
+  const atSameLocation = xLocation === yLocation;
+  return atSameLocation ? 'YES' : 'NO';
+};
+
+// least amount of code
+function kangaroo(xLocation, xJumpSize, yLocation, yJumpSize) {
+  if (
+    (xLocation > yLocation && xJumpSize >= yJumpSize) ||
+    (yLocation > xLocation && yJumpSize >= xJumpSize)
+  ) {
+    return 'NO';
+  } else {
+    if (xLocation > yLocation) {
+      while (xLocation > yLocation) {
+        xLocation += xJumpSize;
+        yLocation += yJumpSize;
+      }
+    } else if (yLocation > xLocation) {
+      while (yLocation > xLocation) {
+        xLocation += xJumpSize;
+        yLocation += yJumpSize;
+      }
+    }
+    return xLocation === yLocation ? 'YES' : 'NO';
   }
 }
