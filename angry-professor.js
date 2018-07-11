@@ -1,13 +1,25 @@
 // https://www.hackerrank.com/challenges/angry-professor/problem
 
+// most readable
+const angryProfessor = (k, a) => {
+  const onTimeCounter = a.reduce(
+    (onTimeCounter, t) => (t <= 0 ? ++onTimeCounter : onTimeCounter),
+    0
+  );
+
+  const shouldCancelClass = onTimeCounter < k;
+
+  return shouldCancelClass ? 'YES' : 'NO';
+};
+
 // declarative, implicit return
 const angryProfessor = (k, a) =>
   a.reduce(
     (onTimeCounter, t) => (t <= 0 ? ++onTimeCounter : onTimeCounter),
     0
   ) < k
-    ? "YES"
-    : "NO";
+    ? 'YES'
+    : 'NO';
 
 // imperative, mutable, explicit return
 function angryProfessor(k, a) {
@@ -18,8 +30,8 @@ function angryProfessor(k, a) {
     }
   }
   if (onTimeCounter < k) {
-    return "YES";
+    return 'YES';
   } else {
-    return "NO";
+    return 'NO';
   }
 }
