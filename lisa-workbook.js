@@ -14,7 +14,8 @@ function workbook(_, maxProbsPerPage, arr) {
       let probsOnAPage = 0;
 
       for (let problemNumber = 1; problemNumber <= probCount; problemNumber++) {
-        if (probsOnAPage < maxProbsPerPage) {
+        const probBelongsOnCurrentPage = probsOnAPage < maxProbsPerPage;
+        if (probBelongsOnCurrentPage) {
           const currentPageAlreadyHasProb =
             pageToProbs[currentPage] !== undefined;
           if (currentPageAlreadyHasProb) {
