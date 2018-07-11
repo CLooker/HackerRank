@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem
 
-//
+// curried and partially applied fn, possibly more understandable
 const countApplesAndOranges = (
   startOfHouse,
   endOfHouse,
@@ -9,9 +9,11 @@ const countApplesAndOranges = (
   distancesOfFallenApples,
   distancesOfFallenOranges
 ) => {
-  const fruitFellOnAHouse = houseCoords => treeCord => fruitDistFromTree => {
+  const fruitFellOnAHouse = ([
+    houseStart,
+    houseEnd
+  ]) => treeCord => fruitDistFromTree => {
     const fruitCoord = fruitDistFromTree + treeCord;
-    const [houseStart, houseEnd] = houseCoords;
     const fellPastStart = fruitCoord >= houseStart;
     const fellBeforeEnd = fruitCoord <= houseEnd;
     return fellPastStart && fellBeforeEnd;
@@ -43,25 +45,77 @@ const countApplesAndOranges = (
 };
 
 // declarative, immutable, side-effects pushed to edge
-const countApplesAndOranges = (s, t, a, b, apple, orange) =>
+const countApplesAndOranges = (
+  startOfHouse,
+  endOfHouse,
+  appleTreeCoord,
+  orangeTreeCoord,
+  distancesOfFallenApples,
+  distancesOfFallenOranges
+) =>
   [
-    apple.filter(app => app + a >= s && app + a <= t).length,
-    orange.filter(or => b + or <= t && b + or >= s).length
+    distancesOfFallenApples.filter(
+      aDist =>
+        aDist + appleTreeCoord >= startOfHouse &&
+        aDist + appleTreeCoord <= endOfHouse
+    ).length,
+    distancesOfFallenOranges.filter(
+      oDist =>
+        oDist + orangeTreeCoord <= endOfHouse &&
+        oDist + orangeTreeCoord >= startOfHouse
+    ).length
   ].forEach(count => console.log(count));
 
 // imperative, mutable
-function countApplesAndOranges(s, t, a, b, apples, oranges) {
-  let aCount = 0;
-  for (let i = 0; i < apple.length; i++) {
-    if (apple[i] + a >= s && apple[i] + a <= t) {
-      ++aCount;
+function countApplesAndOranges(
+  startOfHouse,
+  endOfHouse,
+  appleTreeCoord,
+  orangeTreeCoord,
+  distancesOfFallenApples,
+  distancesOfFallenOranges
+) {
+  const returnCount = (distances, treeCoord) => {
+    let count = 0;
+    for (let i = 0; i < distances.length; i++) {
+      const dist = distances[i];
+      const fruitCoord = treeCoord + dist;
+      const fellPastStart = fruitCoord >= startOfHouse;
+      const fellBeforeEnd = fruitCoord <= endOfHouse;
+      const fellOntoHouse = fellPastStart && fellBeforeEnd;
+      if (fellOntoHouse) {
+        count++;
+      }
     }
-  }
-  let oCount = 0;
-  for (let i = 0; i < orange.length; i++) {
-    if (orange[i] + b <= t && b + orange[i] >= s) {
-      ++oCount;
-    }
-  }
+    return count;
+  };
+
+  const aCount = returnCount(distancesOfFallenApples, appleTreeCoord);
+  const oCount = returnCount(distancesOfFallenOranges, orangeTreeCoord);
+
   console.log(`${aCount}\n${oCount}`);
+}
+
+// declarative
+function countApplesAndOranges(
+  startOfHouse,
+  endOfHouse,
+  appleTreeCoord,
+  orangeTreeCoord,
+  distancesOfFallenApples,
+  distancesOfFallenOranges
+) {
+  const returnCount = (distances, treeCoord) =>
+    distances.reduce((total, dist) => {
+      const fruitCoord = treeCoord + dist;
+      const fellPastStart = fruitCoord >= startOfHouse;
+      const fellBeforeEnd = fruitCoord <= endOfHouse;
+      const fellOntoHouse = fellPastStart && fellBeforeEnd;
+      return fellOntoHouse ? ++total : total;
+    }, 0);
+
+  const aCount = returnCount(distancesOfFallenApples, appleTreeCoord);
+  const oCount = returnCount(distancesOfFallenOranges, orangeTreeCoord);
+
+  [aCount, oCount].forEach(count => console.log(count));
 }
