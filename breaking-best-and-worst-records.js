@@ -2,6 +2,45 @@
 
 // choose your weapon
 
+// newest imperative
+const breakingRecords = scores => {
+  let [high] = scores;
+  let [low] = scores;
+  let newHighs = 0;
+  let newLows = 0;
+
+  scores.forEach(score => {
+    const newHigh = score > high;
+    const newLow = score < low;
+    if (newHigh) {
+      high = score;
+      newHighs++;
+    }
+    if (newLow) {
+      low = score;
+      newLows++;
+    }
+  });
+
+  return [newHighs, newLows];
+};
+
+//newest declarative
+const breakingRecords = scores => {
+  const records = scores.reduce(
+    ({ high, low, newHighs, newLows }, score) => ({
+      high: score > high ? score : high,
+      low: score < low ? score : low,
+      newHighs: score > high ? ++newHighs : newHighs,
+      newLows: score < low ? ++newLows : newLows
+    }),
+    { high: scores[0], low: scores[0], newHighs: 0, newLows: 0 }
+  );
+
+  const { newHighs, newLows } = records;
+  return [newHighs, newLows];
+};
+
 // declarative, immutable, implicit return, but nested ternary confusing to some
 const breakingRecords = scores =>
   scores.reduce(
@@ -37,7 +76,6 @@ const breakingRecords = scores =>
 const breakingRecords = scores =>
   scores.reduce(
     ({ low, high, answer }, s, index) => {
-
       if (s > high) {
         return { low, high: s, answer: [++answer[0], answer[1]] };
       }
