@@ -1,5 +1,32 @@
 // https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem
 
+// best
+const beautifulDays = (startDay, endDay, k) => {
+  const days = (() => {
+    const arr = [];
+    for (let day = startDay; day <= endDay; day++) {
+      arr.push(day);
+    }
+    return arr;
+  })();
+
+  const beautifulDaysTotal = days.reduce((total, day) => {
+    const reversedDay = Number(
+      day
+        .toString()
+        .split('')
+        .reverse()
+        .join('')
+    );
+    const difference = Math.abs(day - reversedDay);
+    const quotient = difference / k;
+    const isBeautifulDay = Number.isInteger(quotient);
+    return isBeautifulDay ? ++total : total;
+  }, 0);
+
+  return beautifulDaysTotal;
+};
+
 // declarative
 const beautifulDays = (i, j, k) =>
   Array.from(Array(j - i + 1))
@@ -12,9 +39,9 @@ const beautifulDays = (i, j, k) =>
               parseInt(
                 num
                   .toString()
-                  .split("")
+                  .split('')
                   .reverse()
-                  .join("")
+                  .join('')
               )
           ) / k
         )
@@ -38,9 +65,9 @@ function beautifulDays(i, j, k) {
             parseInt(
               days[idx]
                 .toString()
-                .split("")
+                .split('')
                 .reverse()
-                .join("")
+                .join('')
             )
         ) / k
       )
