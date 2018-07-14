@@ -1,28 +1,24 @@
 // https://www.hackerrank.com/challenges/cats-and-a-mouse/problem
 
-// declarative, immutable
-const catAndMouse = (x, y, z) =>
-  [null].reduce(
-    ({ catX, catY, answer }, _, index) =>
-      catX < catY
-        ? { catX, catY, answer: answer.concat("Cat A") }
-        : catX > catY
-          ? { catX, catY, answer: answer.concat("Cat B") }
-          : { catX, catY, answer: answer.concat("Mouse C") },
-    { catX: Math.abs(z - x), catY: Math.abs(z - y), answer: [] }
-  ).answer;
+const catAndMouse = (x, y, z) => {
+  const mouseADist = Math.abs(z - x);
+  const mouseBDist = Math.abs(z - y);
+  return mouseADist < mouseBDist
+    ? 'Cat A'
+    : mouseBDist < mouseADist
+      ? 'Cat B'
+      : 'Cat C';
+};
 
-// imperative, mutable
-function catAndMouse(x, y, z) {
+const catAndMouse = (x, y, z) => {
   const mouseADistance = Math.abs(z - x);
   const mouseBDistance = Math.abs(z - y);
-  let answer = [];
-  if (mouseADistance < mouseBDistance) {
-    answer.push("Cat A");
-  } else if (mouseADistance > mouseBDistance) {
-    answer.push("Cat B");
-  } else {
-    answer.push("Mouse C");
+  switch (true) {
+    case mouseADistance < mouseBDistance:
+      return 'Cat A';
+    case mouseBDistance < mouseADistance:
+      return 'Cat B';
+    default:
+      return 'Mouse C';
   }
-  return answer;
-}
+};
