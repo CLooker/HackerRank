@@ -11,7 +11,7 @@ function super_reduced_string(s) {
         const start = s.slice(0, i);
         const end = s.slice(i + 2);
         s = `${start}${end}`;
-        break;
+        i++;
       }
     }
 
