@@ -1,5 +1,34 @@
 // https://www.hackerrank.com/challenges/grid-challenge/problem?h_r=next-challenge&h_v=zen
 
+// mixture that might be easiest to read
+const gridChallenge = grid => {
+  const gridWithOrderedRows = grid.map(seq =>
+    seq
+      .split('')
+      .sort()
+      .join('')
+  );
+
+  let answer = 'YES';
+
+  gridWithOrderedRows.forEach((row, i) => {
+    row.split('').forEach((letter, j) => {
+      // use for loop because counter is non-standard
+      // for loop is probably easier to read than alternatives
+      for (let k = i + 1; k < gridWithOrderedRows.length; k++) {
+        const otherRow = gridWithOrderedRows[k];
+        const otherLetter = otherRow[j];
+        if (otherLetter < letter) {
+          answer = 'NO';
+          break;
+        }
+      }
+    });
+  });
+
+  return answer;
+};
+
 // imperative, mutative
 function gridChallenge(grid) {
   let gridWithOrderedRows = [];
@@ -63,33 +92,4 @@ const gridChallenge = grid => {
           }, null),
     null
   );
-};
-
-// mixture that might be easiest to read
-const gridChallenge = grid => {
-  const gridWithOrderedRows = grid.map(seq =>
-    seq
-      .split('')
-      .sort()
-      .join('')
-  );
-
-  let answer = 'YES';
-
-  gridWithOrderedRows.forEach((row, i) => {
-    row.split('').forEach((letter, j) => {
-      // use for loop because counter is non-standard
-      // for loop is probably easier to read than alternatives
-      for (let k = i + 1; k < gridWithOrderedRows.length; k++) {
-        const otherRow = gridWithOrderedRows[k];
-        const otherLetter = otherRow[j];
-        if (otherLetter < letter) {
-          answer = 'NO';
-          break;
-        }
-      }
-    });
-  });
-
-  return answer;
 };
