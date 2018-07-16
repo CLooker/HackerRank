@@ -1,5 +1,29 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem
 
+// declarative
+function countApplesAndOranges(
+  startOfHouse,
+  endOfHouse,
+  appleTreeCoord,
+  orangeTreeCoord,
+  distancesOfFallenApples,
+  distancesOfFallenOranges
+) {
+  const returnCount = (distances, treeCoord) =>
+    distances.reduce((total, dist) => {
+      const fruitCoord = treeCoord + dist;
+      const fellPastStart = fruitCoord >= startOfHouse;
+      const fellBeforeEnd = fruitCoord <= endOfHouse;
+      const fellOntoHouse = fellPastStart && fellBeforeEnd;
+      return fellOntoHouse ? ++total : total;
+    }, 0);
+
+  const aCount = returnCount(distancesOfFallenApples, appleTreeCoord);
+  const oCount = returnCount(distancesOfFallenOranges, orangeTreeCoord);
+
+  [aCount, oCount].forEach(count => console.log(count));
+}
+
 // curried and partially applied fn, possibly more understandable
 const countApplesAndOranges = (
   startOfHouse,
@@ -94,28 +118,4 @@ function countApplesAndOranges(
   const oCount = returnCount(distancesOfFallenOranges, orangeTreeCoord);
 
   console.log(`${aCount}\n${oCount}`);
-}
-
-// declarative
-function countApplesAndOranges(
-  startOfHouse,
-  endOfHouse,
-  appleTreeCoord,
-  orangeTreeCoord,
-  distancesOfFallenApples,
-  distancesOfFallenOranges
-) {
-  const returnCount = (distances, treeCoord) =>
-    distances.reduce((total, dist) => {
-      const fruitCoord = treeCoord + dist;
-      const fellPastStart = fruitCoord >= startOfHouse;
-      const fellBeforeEnd = fruitCoord <= endOfHouse;
-      const fellOntoHouse = fellPastStart && fellBeforeEnd;
-      return fellOntoHouse ? ++total : total;
-    }, 0);
-
-  const aCount = returnCount(distancesOfFallenApples, appleTreeCoord);
-  const oCount = returnCount(distancesOfFallenOranges, orangeTreeCoord);
-
-  [aCount, oCount].forEach(count => console.log(count));
 }
