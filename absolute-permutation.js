@@ -11,7 +11,7 @@ function absolutePermutation(max, factor) {
   const zeroToMax = Array.from(Array(max)).map((_, i) => i + 1);
   if (factorIsZero) return zeroToMax;
 
-  function* returnPosOrNegFactor() {
+  function* returnPosOrNegFactorIterator() {
     let returnValue = factor;
     while (true) {
       for (let i = 0; i < factor; i++) {
@@ -23,9 +23,9 @@ function absolutePermutation(max, factor) {
 
   const permutated = (() => {
     let arr = [];
-    const posOrNegFactor = returnPosOrNegFactor();
+    const posOrNegFactorIterator = returnPosOrNegFactor();
     for (const [_, num] of zeroToMax.entries()) {
-      const { value } = posOrNegFactor.next();
+      const { value } = posOrNegFactorIterator.next();
       const newNum = num + value;
       arr.push(newNum);
     }
