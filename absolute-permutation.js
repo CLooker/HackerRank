@@ -23,7 +23,7 @@ function absolutePermutation(max, factor) {
 
   const permutated = (() => {
     let arr = [];
-    const posOrNegFactorIterator = returnPosOrNegFactor();
+    const posOrNegFactorIterator = returnPosOrNegFactorIterator();
     for (const [_, num] of zeroToMax.entries()) {
       const { value } = posOrNegFactorIterator.next();
       const newNum = num + value;
