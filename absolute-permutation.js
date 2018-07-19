@@ -4,26 +4,26 @@
 // it's probably HackerRank IO issue.
 
 function absolutePermutation(max, factor) {
-  const factorIsZero = factor === 0;
   const isSolutionPossible = max % factor === 0;
+  const factorIsZero = factor === 0;
   if (!isSolutionPossible && !factorIsZero) return [-1];
 
   const zeroToMax = Array.from(Array(max)).map((_, i) => i + 1);
   if (factorIsZero) return zeroToMax;
 
-  function* addOrSubtractFactorSignaler() {
-    let counter = factor;
+  function* returnPosOrNegFactor() {
+    let returnValue = factor;
     while (true) {
       for (let i = 0; i < factor; i++) {
-        yield counter;
+        yield returnValue;
       }
-      counter = -counter;
+      returnValue = -returnValue;
     }
   }
 
   const permutated = (() => {
     let arr = [];
-    const signaler = addOrSubtractFactorSignaler();
+    const signaler = returnPosOrNegFactor();
     for (const [i, num] of zeroToMax.entries()) {
       const { value } = signaler.next();
       const newNum = num + value;
