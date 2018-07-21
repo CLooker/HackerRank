@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/strange-code/problem
+
 const strangeCounter = maxTime => {
   // second member of each time-value map is always equal
   // pivot is that value
