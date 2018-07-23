@@ -6,13 +6,16 @@ function bomberMan(n, grid) {
 
   // an even timer guarantees a grid full of bombs
   const isEven = num => num % 2 === 0;
-  const gridFullOfBombs = grid.map(row =>
-    row
-      .split('')
-      .map(item => 'O')
-      .join('')
-  );
-  if (isEven(n)) return gridFullOfBombs;
+
+  if (isEven(n)) {
+    const gridFullOfBombs = grid.map(row =>
+      row
+        .split('')
+        .map(item => 'O')
+        .join('')
+    );
+    return gridFullOfBombs;
+  }
 
   // every fifth second,
   // the state of the board will be the original
@@ -38,7 +41,7 @@ function bomberMan(n, grid) {
 
   // on even seconds, add bombs to bombless cells
   // otherwise, decrement bomb timer
-  const addBombsAndDecrementTimers = () =>
+  const addBombsOrDecrementTimers = () =>
     Object.entries(rowsToTimersMap).forEach(([rowIdx, timers]) => {
       timers.forEach((timer, timerIdx) => {
         hasTimer(timer)
@@ -97,7 +100,7 @@ function bomberMan(n, grid) {
   let localTime = 1;
   while (localTime <= n) {
     if (isEven(localTime)) {
-      addBombsAndDecrementTimers();
+      addBombsOrDecrementTimers();
     } else {
       decrementAllTimers();
     }
@@ -111,9 +114,9 @@ function bomberMan(n, grid) {
   const finalGrid = (() => {
     let grid = [];
 
-    Object.values(rowsToTimersMap).forEach(timer => {
+    Object.values(rowsToTimersMap).forEach(timers => {
       let row = '';
-      timer.forEach(timer => {
+      timers.forEach(timer => {
         const hasBomb = hasTimer(timer);
         row = row.concat(hasBomb ? 'O' : '.');
       });
