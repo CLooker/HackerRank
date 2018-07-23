@@ -4,9 +4,9 @@ function bomberMan(n, grid) {
   // no changes made
   if (n <= 1) return grid;
 
-  // an even timer guarantees a grid full of bombs
   const isEven = num => num % 2 === 0;
 
+  // an even timer guarantees a grid full of bombs
   if (isEven(n)) {
     const gridFullOfBombs = grid.map(row =>
       row
