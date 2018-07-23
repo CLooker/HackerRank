@@ -23,20 +23,23 @@ function bomberMan(n, grid) {
 
   // returns obj mapping rows to array of timers
   const rowsToTimersMap = (() => {
-    const rows = {};
+    const rowsToTimers = {};
 
     grid.forEach((row, rowIdx) => {
-      rows[rowIdx] = [];
+      rowsToTimers[rowIdx] = [];
       row.split('').forEach(rowItem => {
         const isBomb = rowItem === 'O';
         const rowItemTimer = isBomb ? 3 : -1;
-        rows[rowIdx].push(rowItemTimer);
+        rowsToTimers[rowIdx].push(rowItemTimer);
       });
     });
 
-    return rows;
+    return rowsToTimers;
   })();
 
+  // cannot use if(timer)
+  // some timers are -1, which symbolizes
+  // detonated bomb
   const hasTimer = timer => timer > 0;
 
   // on even seconds, add bombs to bombless cells
@@ -91,6 +94,7 @@ function bomberMan(n, grid) {
       });
     });
 
+    // -1 symbolizes detonation
     detonatedRowIdxToTimerIdxPairs.forEach(([rowIdx, timerIdx]) => {
       rowsToTimersMap[rowIdx][timerIdx] = -1;
     });
