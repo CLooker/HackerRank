@@ -1,8 +1,8 @@
-//https://www.hackerrank.com/challenges/acm-icpc-team/problem
+// https://www.hackerrank.com/challenges/acm-icpc-team/problem
 
 function acmTeam(attendees) {
   // returns obj mapping from attendees
-  // to other attendees whome best combinations
+  // to other attendees whom best combinations
   // should be computed
   const pairsToCheck = (() => {
     const dict = {};
