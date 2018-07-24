@@ -2,7 +2,7 @@
 
 function acmTeam(attendees) {
   // returns obj mapping from attendees
-  // to other attendees whom best combinations
+  // to other attendees for which best combinations
   // should be computed
   const pairsToCheck = (() => {
     const dict = {};
