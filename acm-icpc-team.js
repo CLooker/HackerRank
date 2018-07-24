@@ -4,13 +4,14 @@ function acmTeam(attendees) {
   // returns obj mapping from attendees
   // to other attendees for which best combinations
   // should be computed
-  const pairsToCheck = (() => {
+  const validAttendeeCombos = (() => {
     const dict = {};
-    for (let attendee = 1; attendee < attendees.length; attendee++) {
+    const { length } = attendees;
+    for (let attendee = 1; attendee < length; attendee++) {
       dict[attendee] = [];
       for (
         let otherAttendee = attendee + 1;
-        otherAttendee <= attendees.length;
+        otherAttendee <= length;
         otherAttendee++
       ) {
         dict[attendee].push(otherAttendee);
@@ -20,84 +21,86 @@ function acmTeam(attendees) {
   })();
 
   // should we compute combination of scores
-  const shouldCheck = (attendee, otherAttendee) => {
-    const isAttendeeValid = pairsToCheck[attendee];
+  const isValidCombo = (attendee, otherAttendee) => {
+    const isAttendeeValid = validAttendeeCombos[attendee];
     if (!isAttendeeValid) return false;
 
     if (!otherAttendee) return true;
 
-    return pairsToCheck[attendee].some(person => person === otherAttendee);
+    return validAttendeeCombos[attendee].some(
+      person => person === otherAttendee
+    );
   };
 
-  const hasKnowledge = topic => topic === '1';
+  const hasKnowledge = topic => topic == 1;
 
   const returnTotal = coll => coll.reduce((total, num) => total + num, 0);
 
   // start off with 0 as the most topics known
-  let maxTotals = [0];
+  let mostTopicsKnownColl = [0];
 
   for (let [i, attendee] of attendees.entries()) {
-    // add 1 because there is no `0` attendee
+    // validAttedeeCombos is 1-indexed
     i += 1;
 
-    if (!shouldCheck(i)) break;
+    if (!isValidCombo(i)) break;
 
     // best score combo between this attendee and all others
-    let bestCombination = [];
+    // TODO RENAME
+    let bestComboForThisAttendee = [];
 
     for (let [j, otherAttendee] of attendees.entries()) {
-      // no `0` attendee
+      // validAttedeeCombos is 1-indexed
       j += 1;
-
-      if (!shouldCheck(i, j)) continue;
+      if (!isValidCombo(i, j)) continue;
 
       // if we have all 1's, we don't need new combos
-      const bestTotalReached =
-        bestCombination.length === attendee.length &&
-        bestCombination.every(hasKnowledge);
-      if (bestTotalReached) break;
+      const isBestPossibleCombo =
+        bestComboForThisAttendee.length === attendee.length &&
+        bestComboForThisAttendee.every(hasKnowledge);
+      if (isBestPossibleCombo) break;
 
-      // build best combo for this particular attendee/other
-      let localBestCombination = [];
-      for (const [field, topic] of [...attendee].entries()) {
+      // build best combo for this particular attendee/otherAttendee
+      let combo = [];
+      for (const [topicIdx, topic] of [...attendee].entries()) {
         if (hasKnowledge(topic)) {
-          localBestCombination.push(1);
+          combo.push(1);
           continue;
         }
 
-        if (hasKnowledge(otherAttendee[field])) {
-          localBestCombination.push(1);
+        if (hasKnowledge(otherAttendee[topicIdx])) {
+          combo.push(1);
           continue;
         }
 
-        localBestCombination.push(0);
+        combo.push(0);
       }
 
-      const localBestCombinationTotal = returnTotal(localBestCombination);
-      const bestCombinationTotal = returnTotal(bestCombination);
-      const isNewBestCombination =
-        localBestCombinationTotal > bestCombinationTotal;
+      const topicsKnown = returnTotal(combo);
+      const attendeeMostTopicsKnown = returnTotal(bestComboForThisAttendee);
+      const isNewBest = topicsKnown > attendeeMostTopicsKnown;
 
       // compare this to the best combo attendee has so far
-      if (isNewBestCombination) bestCombination = localBestCombination;
+      if (isNewBest) bestComboForThisAttendee = combo;
     }
 
-    const bestCombinationTotal = returnTotal(bestCombination);
-    const [max] = maxTotals;
-    const isMatchingMax = bestCombinationTotal === max;
+    const attendeeMostTopicsKnown = returnTotal(bestComboForThisAttendee);
+    const [mostTopicsKnown] = mostTopicsKnownColl;
+    const isMatchingMostKnownTopics =
+      attendeeMostTopicsKnown === mostTopicsKnown;
 
     // compare this attendee's best versus the all-time best
-    if (isMatchingMax) {
-      maxTotals.push(bestCombinationTotal);
+    if (isMatchingMostKnownTopics) {
+      mostTopicsKnownColl.push(attendeeMostTopicsKnown);
       continue;
     }
 
-    const isNewMax = bestCombinationTotal > max;
-    if (isNewMax) maxTotals = [bestCombinationTotal];
+    const isNewMax = attendeeMostTopicsKnown > mostTopicsKnown;
+    if (isNewMax) mostTopicsKnownColl = [attendeeMostTopicsKnown];
   }
 
-  const [max] = maxTotals;
-  const totalTeamsWithMax = maxTotals.length;
+  const [mostTopicsKnown] = mostTopicsKnownColl;
+  const totalTeamsWithMostTopicsKnown = mostTopicsKnownColl.length;
 
-  return [max, totalTeamsWithMax];
+  return [mostTopicsKnown, totalTeamsWithMostTopicsKnown];
 }
