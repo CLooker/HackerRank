@@ -42,7 +42,7 @@ function acmTeam(attendees) {
 
     if (!shouldCheck(i)) break;
 
-    // best score combo between attendee and other
+    // best score combo between this attendee and all others
     let bestCombination = [];
 
     for (let [j, otherAttendee] of attendees.entries()) {
