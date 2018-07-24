@@ -2,6 +2,8 @@
 
 // readable
 const getTotalX = (a, b) => {
+  // every element of a
+  // divides evenly into every element of aFactors
   const aFactors = (() => {
     const arr = [];
     const firstBNum = b[0];
@@ -13,9 +15,7 @@ const getTotalX = (a, b) => {
     ) {
       let isFactorForAllAs = true;
 
-      const { length } = a;
-      for (let j = 0; j < length; j++) {
-        const aNum = a[j];
+      for (const aNum of a) {
         const isNotFactor = possibleFactor % aNum !== 0;
         if (isNotFactor) {
           isFactorForAllAs = false;
@@ -32,15 +32,15 @@ const getTotalX = (a, b) => {
   })();
 
   const allXs = aFactors.reduce((xForAllColl, aFactor) => {
-    const { length } = b;
-    for (let j = 0; j < length; j++) {
-      const bNum = b[j];
+    for (const bNum of b) {
       const isNotX = bNum % aFactor !== 0;
+      // do nothing to reduced coll
       if (isNotX) {
         return xForAllColl;
       }
     }
 
+    // add new factor to reduced coll
     return xForAllColl.concat(aFactor);
   }, []);
 
