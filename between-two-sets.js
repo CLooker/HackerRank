@@ -8,9 +8,9 @@ const getTotalX = (a, b) => {
       let isValidForAll = true;
 
       for (const otherNum of otherNums) {
-        const isValid = getAFactors
-          ? num % otherNum === 0
-          : otherNum % num === 0;
+        const numerator = getAFactors ? num : otherNum;
+        const denominator = getAFactors ? otherNum : num;
+        const isValid = numerator % denominator === 0;
         if (!isValid) {
           isValidForAll = false;
           break;
