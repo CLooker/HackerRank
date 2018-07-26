@@ -1,46 +1,46 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem
 
 const getTotalX = (a, b) => {
-  const getAFactorsOrXs = ({ nums, otherNums, getAFactors = false }) => {
-    let arr = [];
-
-    for (const num of nums) {
-      let isValidForAll = true;
-
-      for (const otherNum of otherNums) {
-        const numerator = getAFactors ? num : otherNum;
-        const denominator = getAFactors ? otherNum : num;
-        const isValid = numerator % denominator === 0;
-        if (!isValid) {
-          isValidForAll = false;
-          break;
-        }
+  const getPossibleFactors = (nums, denoms) => {
+    const firstPossibleFactor = nums[nums.length - 1];
+    const lastPossibleFactor = denoms[0];
+    const possibleFactors = (() => {
+      let possibleFs = [];
+      for (
+        let possibleFactor = firstPossibleFactor;
+        possibleFactor <= lastPossibleFactor;
+        possibleFactor += firstPossibleFactor
+      ) {
+        possibleFs.push(possibleFactor);
       }
-
-      if (isValidForAll) arr.push(num);
-    }
-
-    return arr;
+      return possibleFs;
+    })();
+    return possibleFactors;
   };
 
-  const lastPossibleAFactor = b[0];
-  const possibleAFactors = Array.from(Array(lastPossibleAFactor)).map(
-    (_, i) => ++i
-  );
+  const getAFactorsOrXs = type => (nums, otherNums) => {
+    const isGettingAFactors = type === 'getAFactors';
 
-  // every element of `a`
-  // divides evenly into every element of `aFactors`
-  const aFactors = getAFactorsOrXs({
-    nums: possibleAFactors,
-    otherNums: a,
-    getAFactors: true
-  });
+    const validNums = nums.filter(num => {
+      const isNumValidForAll = otherNums.every(otherNum => {
+        const numerator = isGettingAFactors ? num : otherNum;
+        const denominator = isGettingAFactors ? otherNum : num;
+        const isNumValid = numerator % denominator === 0;
+        return isNumValid;
+      });
 
-  // every element of `a`
-  // divides evenly into every element of `allXs`
-  // every element of `allXs`
-  // divides evenly into every element of `b`
-  const allXs = getAFactorsOrXs({ nums: aFactors, otherNums: b });
+      return isNumValidForAll;
+    });
 
-  return allXs.length;
+    return validNums;
+  };
+
+  const getAFactors = getAFactorsOrXs('getAFactors');
+  const possibleAFactors = getPossibleFactors(a, b);
+  const aFactors = getAFactors(possibleAFactors, a);
+
+  const getXs = getAFactorsOrXs('getXs');
+  const xS = getXs(aFactors, b);
+
+  return xS.length;
 };
