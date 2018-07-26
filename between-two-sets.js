@@ -1,46 +1,40 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem
 
-const getTotalX = (a, b) => {
-  const getPossibleFactors = (nums, denoms) => {
-    const firstPossibleFactor = nums[nums.length - 1];
-    const lastPossibleFactor = denoms[0];
-    const possibleFactors = (() => {
-      let possibleFs = [];
-      for (
-        let possibleFactor = firstPossibleFactor;
-        possibleFactor <= lastPossibleFactor;
-        possibleFactor += firstPossibleFactor
-      ) {
-        possibleFs.push(possibleFactor);
+const getPossibleXs = (denominators, lastPossibleX) => {
+  const firstPossibleX = denominators[denominators.length - 1];
+  let possibleXs = [];
+
+  for (
+    let possibleX = firstPossibleX;
+    possibleX <= lastPossibleX;
+    possibleX += firstPossibleX
+  ) {
+    const isEvenlyDivisibleByAllDenominators = denominators.every(
+      denominator => {
+        const isEvenlyDisible = possibleX % denominator === 0;
+        return isEvenlyDisible;
       }
-      return possibleFs;
-    })();
-    return possibleFactors;
-  };
+    );
 
-  const getAFactorsOrXs = type => (nums, otherNums) => {
-    const isGettingAFactors = type === 'getAFactors';
+    if (isEvenlyDivisibleByAllDenominators) possibleXs.push(possibleX);
+  }
 
-    const validNums = nums.filter(num => {
-      const isNumValidForAll = otherNums.every(otherNum => {
-        const numerator = isGettingAFactors ? num : otherNum;
-        const denominator = isGettingAFactors ? otherNum : num;
-        const isNumValid = numerator % denominator === 0;
-        return isNumValid;
-      });
+  return possibleXs;
+};
 
-      return isNumValidForAll;
+const getXs = (numerators, possibleXs) =>
+  possibleXs.filter(possibleX => {
+    const isXForAllNumerators = numerators.every(numerator => {
+      const isX = numerator % possibleX === 0;
+      return isX;
     });
 
-    return validNums;
-  };
+    return isXForAllNumerators;
+  });
 
-  const getAFactors = getAFactorsOrXs('getAFactors');
-  const possibleAFactors = getPossibleFactors(a, b);
-  const aFactors = getAFactors(possibleAFactors, a);
-
-  const getXs = getAFactorsOrXs('getXs');
-  const xS = getXs(aFactors, b);
-
+const getTotalX = (a, b) => {
+  const [lastPossibleX] = b;
+  const possibleXs = getPossibleXs(a, lastPossibleX);
+  const xS = getXs(b, possibleXs);
   return xS.length;
 };
