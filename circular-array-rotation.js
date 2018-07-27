@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/circular-array-rotation/problem
 
-function circularArrayRotation(arr, rotations, arrOfQueries) {
+function circularArrayRotation(arr, rotations, queries) {
   let rotationsToPerform = rotations % arr.length;
   const rotateArr = () => arr.unshift(arr.pop());
 
@@ -9,11 +9,9 @@ function circularArrayRotation(arr, rotations, arrOfQueries) {
     rotationsToPerform--;
   }
 
-  let queryVals = [];
-
-  arrOfQueries.forEach(query => {
+  const queryVals = queries.map(query => {
     const val = arr[query];
-    queryVals.push(val);
+    return val;
   });
 
   return queryVals;
