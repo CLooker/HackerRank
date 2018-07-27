@@ -1,37 +1,25 @@
 // https://www.hackerrank.com/challenges/counting-valleys/problem
 
-// declarative, implicit return
-const countingValleys = (n, s) =>
-  s.split("").reduce(
-    ({ pos, vSteps, valleys }, step) => {
-      step === "U" ? ++pos : --pos;
-      pos < 0 && ++vSteps;
-      pos === 0 && vSteps > 0 && ++valleys && (vSteps = 0);
-      return { pos, vSteps, valleys };
-    },
-    { pos: 0, vSteps: 0, valleys: 0 }
-  ).valleys;
+const countingValleys = (stepsToTake, path) => {
+  let position = 0;
+  let valleySteps = 0;
 
-// imperative, explicit return
-function countingValleys(n, s) {
-  let pos = 0;
-  let vSteps = 0;
-  let valleys = 0;
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] === "U") {
-      ++pos;
-    } else {
-      --pos;
-    }
-    if (pos < 0) {
-      ++vSteps;
-    }
-    if (pos === 0) {
-      if (vSteps > 0) {
-        ++valleys;
-        vSteps = 0;
+  return path.split('').reduce((valleyCount, step) => {
+    const isUpStep = step === 'U';
+    isUpStep ? position++ : position--;
+
+    const isValley = position < 0;
+    if (isValley) ++valleySteps;
+
+    const isSeaLevel = position === 0;
+    if (isSeaLevel) {
+      const hasBeenInValley = valleySteps > 0;
+      if (hasBeenInValley) {
+        valleySteps = 0;
+        return ++valleyCount;
       }
     }
-  }
-  return valleys;
-}
+
+    return valleyCount;
+  }, 0);
+};
