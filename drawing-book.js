@@ -1,30 +1,43 @@
 // https://www.hackerrank.com/challenges/drawing-book/problem// https://www.hackerrank.com/challenges/drawing-book/problem
 
-function solve(n, p){
-    const fromFront = (n, p) => {
-        let pages = [0, 1];
-        let turnCounter = 0;
-        if (pages[0] !== p && pages[1] !== p) {
-            do {
-                pages = [pages[0] + 2, pages[1] + 2];
-                ++turnCounter;
-            }
-            while (pages[0] !== p && pages[1] !== p)
-        }       
-        return turnCounter; 
+function pageCount(totalPages, desiredPage) {
+  const getPageTurns = type => {
+    const isFromFront = type === 'fromFront';
+
+    const startingPages = (() => {
+      if (isFromFront) return [0, 1];
+
+      const finalPageNumber = (() => {
+        const isEven = num => num % 2 === 0;
+        const isFinalPageNumbered = !isEven(totalPages);
+        return isFinalPageNumbered ? totalPages : false;
+      })();
+
+      if (!finalPageNumber) return [totalPages, totalPages + 1];
+
+      return [totalPages - 1, totalPages];
+    })();
+
+    let currentPages = startingPages;
+    let pageTurns = 0;
+    const isOnDesiredPage = () =>
+      currentPages.some(page => page === desiredPage);
+
+    while (!isOnDesiredPage()) {
+      currentPages = currentPages.map(
+        page => (isFromFront ? page + 2 : page - 2)
+      );
+      pageTurns++;
     }
-    const fromBack = (n, p) => {        
-        const setPages = (pg) => pg % 2 === 0 ? [pg, pg+1] : [pg-1, pg];
-        let pages = setPages(n);
-        let turnCounter = 0;
-        if (pages[0] !== p && pages[1] !== p) {
-            do {
-                pages = setPages(pages[1] - 2);
-                ++turnCounter;
-            }
-            while (pages[0] !== p && pages[1] !== p)
-        }       
-        return turnCounter;        
-    }
-    return [ fromFront(n, p), fromBack(n, p) ].sort((a, b) => a - b)[0];
+
+    return pageTurns;
+  };
+
+  const leastPageTurns = (() => {
+    const pageTurnsFromFront = getPageTurns('fromFront');
+    const pageTurnsFromBack = getPageTurns('fromBack');
+    return Math.min(pageTurnsFromFront, pageTurnsFromBack);
+  })();
+
+  return leastPageTurns;
 }
