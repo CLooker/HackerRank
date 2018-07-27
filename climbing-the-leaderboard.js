@@ -1,21 +1,23 @@
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem
 
 function climbingLeaderboard(allScores, aliceScores) {
+  // takes an array of scores, and returns only unique values in ascending order
+  // Number[] -> Number[]
   const getUniqueScoresAsc = scores => {
     const scoresAsc = [...scores].sort((a, b) => a - b);
     const lastVal = arr => arr.length && arr[arr.length - 1];
 
-    let uniqueScores = [];
-
-    scoresAsc.forEach(score => {
+    return scoresAsc.reduce((uniqueScores, score) => {
       const lastUniqueScore = lastVal(uniqueScores);
-      if (!lastUniqueScore) return uniqueScores.push(score);
-
       const isNewUniqueScore = score > lastUniqueScore;
-      if (isNewUniqueScore) uniqueScores.push(score);
-    });
 
-    return uniqueScores;
+      if (!lastUniqueScore || isNewUniqueScore) {
+        uniqueScores.push(score);
+        return uniqueScores;
+      }
+
+      return uniqueScores;
+    }, []);
   };
 
   const aliceRankings = (() => {
@@ -25,9 +27,14 @@ function climbingLeaderboard(allScores, aliceScores) {
     let rankings = [];
     let leaderBoardScoresIdx = 0;
 
+    // compare each aliceScore with unique leaderboard scores
+    // keep track of our leaderboard score index
+    // we know our scores are sorted so there is no need to return
+    // to scores we already have checked
     aliceScores.forEach(aliceScore => {
       for (
         ;
+        // use closure to alter starting index for each aliceScore
         leaderBoardScoresIdx < leaderBoardScoresLength;
         leaderBoardScoresIdx++
       ) {
