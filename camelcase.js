@@ -2,36 +2,27 @@
 // This exercise times out when using immutable data structures
 
 const camelcase = s => {
-  const firstLetterIndexes = (() => {
-    const arr = [];
-    for (let i = 0; i < s.length; i++) {
-      const letter = s[i];
-      const isCapitalized = letter.toUpperCase() === letter;
-      if (isCapitalized) {
-        arr.push(i);
-      }
-    }
-    return arr;
-  })();
+  const firstLetterIndexes = s.split('').filter(letter => {
+    const isCapitalized = letter.toUpperCase() === letter;
+    return isCapitalized;
+  });
 
   const isOnlyOneWord = firstLetterIndexes.length === 0;
-
-  if (isOnlyOneWord) {
-    return 1;
-  }
+  if (isOnlyOneWord) return 1;
 
   const words = (() => {
-    const arr = [];
-    firstLetterIndexes.forEach((idx, i) => {
-      const wordsIsEmpty = arr.length === 0;
-      if (wordsIsEmpty) {
-        const firstWord = s.slice(0, idx);
-        arr.push(firstWord);
-      }
-      const word = s.slice(idx, firstLetterIndexes[i + 1]);
-      arr.push(word);
-    });
-    return arr;
+    const [firstCapitalizedLetterIdx] = firstLetterIndexes;
+    const firstWord = s.slice(0, firstCapitalizedLetterIdx);
+
+    // start with an array with the first word already in it
+    return firstLetterIndexes.reduce(
+      (words, firstLetterIndex, i) => {
+        const nextWord = s.slice(firstLetterIndex, firstLetterIndexes[i + 1]);
+        words.push(nextWord);
+        return words;
+      },
+      [firstWord]
+    );
   })();
 
   return words.length;
