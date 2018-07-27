@@ -115,20 +115,29 @@ function bomberMan(n, grid) {
   // iterate over rowsToTimersMap
   // any cell with a timer means it has a bomb
   // otherwise it doesn't have a bomb
-  const finalGrid = (() => {
-    let grid = [];
-
-    Object.values(rowsToTimersMap).forEach(timers => {
-      let row = '';
-      timers.forEach(timer => {
-        const hasBomb = hasTimer(timer);
-        row = row.concat(hasBomb ? 'O' : '.');
-      });
-      grid.push(row);
+  const finalGrid = Object.values(rowsToTimersMap).map(timers => {
+    let row = '';
+    timers.forEach(timer => {
+      const hasBomb = hasTimer(timer);
+      row = row.concat(hasBomb ? 'O' : '.');
     });
+    return row;
+  });
 
-    return grid;
-  })();
+  // const finalGrid = (() => {
+  //   let grid = [];
+
+  //   Object.values(rowsToTimersMap).forEach(timers => {
+  //     let row = '';
+  //     timers.forEach(timer => {
+  //       const hasBomb = hasTimer(timer);
+  //       row = row.concat(hasBomb ? 'O' : '.');
+  //     });
+  //     grid.push(row);
+  //   });
+
+  //   return grid;
+  // })();
 
   return finalGrid;
 }
