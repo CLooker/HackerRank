@@ -10,9 +10,7 @@ function appendAndDelete(s, t, k) {
     return matchIsPossible;
   })();
 
-  if (identicalStringsSatisfyK) {
-    return 'Yes';
-  }
+  if (identicalStringsSatisfyK) return 'Yes';
 
   const { length: initialLength } = s;
   const { length: desiredLength } = t;
@@ -40,9 +38,7 @@ function appendAndDelete(s, t, k) {
     return matchIsActual;
   })();
 
-  if (happyPathMatches) {
-    return 'Yes';
-  }
+  if (happyPathMatches) return 'Yes';
 
   const delAndAppendAllMatches = (() => {
     const initialMutations = initialLength;
@@ -52,9 +48,7 @@ function appendAndDelete(s, t, k) {
     return matchIsPossible;
   })();
 
-  if (delAndAppendAllMatches) {
-    return 'Yes';
-  }
+  if (delAndAppendAllMatches) return 'Yes';
 
   const checkRestOfCases = (() => {
     const lengthsMatch = initialLength === desiredLength;
