@@ -1,15 +1,18 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem
 
-const getMoneySpent = (keyboards, drives, s) => {
-  const answer = (
-    keyboards
-    .reduce((possibleTotals, k) => (
-      drives.reduce((possibleTotals, d) => possibleTotals.push(k + d) && possibleTotals, possibleTotals)
-    ), [])
-    .filter(t => t <= s)
-    .sort((a, b) => b - a)[0]
-  );
+const getMoneySpent = (keyboardPrices, drivePrices, totalMoney) => {
+  let mostExpensiveCombo = -1;
 
-  return answer ? answer : -1;
-}
+  keyboardPrices.forEach(keyboardPrice => {
+    drivePrices.forEach(drivePrice => {
+      const comboPrice = keyboardPrice + drivePrice;
+      const isValid = comboPrice <= totalMoney;
+      if (isValid) {
+        const isMostExpensiveCombo = comboPrice > mostExpensiveCombo;
+        if (isMostExpensiveCombo) mostExpensiveCombo = comboPrice;
+      }
+    });
+  });
 
+  return mostExpensiveCombo;
+};
