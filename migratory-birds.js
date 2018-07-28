@@ -1,14 +1,28 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem
 
-function migratoryBirds(n, ar) {
-  const bTypesAndPops = ar.reduce(
-    (bTypesAndPops, type) =>
-      Object.assign({}, bTypesAndPops, ++bTypesAndPops[type]),
-    { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
-  );
-  const bTypes = Object.keys(bTypesAndPops);
-  const most = bTypes
-    .map(type => bTypesAndPops[type])
-    .reduce((result, pop) => (pop > result ? (result = pop) : result), null);
-  return bTypes.filter(type => bTypesAndPops[type] === most)[0];
-}
+const migratoryBirds = birdTypes => {
+  const typesToFreq = (() => {
+    const dict = {};
+
+    birdTypes.forEach(birdType => {
+      const isBirdTypeInDict = dict[birdType];
+      isBirdTypeInDict ? dict[birdType]++ : (dict[birdType] = 1);
+    });
+
+    return dict;
+  })();
+
+  let highestFreqBirdType = null;
+
+  Object.entries(typesToFreq).reduce((highestFreq, [birdType, freq]) => {
+    const isHighestFreq = freq > highestFreq;
+    if (isHighestFreq) {
+      highestFreqBirdType = birdType;
+      return freq;
+    }
+
+    return highestFreq;
+  }, 0);
+
+  return highestFreqBirdType;
+};
