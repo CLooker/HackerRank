@@ -12,16 +12,14 @@ const flatlandSpaceStations = (n, c) => {
     }
 
     return dict;
-  })(c);
+  })();
 
   const distUntilFirstStation = (() => {
     let dist = 0;
 
     for (let city = 0; city < n; city++) {
       const cityHasStation = citiesWithStations[city];
-      if (cityHasStation) {
-        break;
-      }
+      if (cityHasStation) break;
 
       dist++;
     }
@@ -34,9 +32,7 @@ const flatlandSpaceStations = (n, c) => {
 
     for (let city = n - 1; city >= 0; city--) {
       const cityHasStation = citiesWithStations[city];
-      if (cityHasStation) {
-        break;
-      }
+      if (cityHasStation) break;
 
       dist++;
     }
@@ -52,9 +48,7 @@ const flatlandSpaceStations = (n, c) => {
       const cityHasStation = citiesWithStations[city];
       if (cityHasStation) {
         const shouldUpdateMax = currentDist > maxDist;
-        if (shouldUpdateMax) {
-          maxDist = currentDist;
-        }
+        if (shouldUpdateMax) maxDist = currentDist;
 
         currentDist = 0;
         continue;
