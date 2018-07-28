@@ -1,52 +1,44 @@
 // https://www.hackerrank.com/challenges/library-fine/problem
 
 function libraryFine(d1, m1, y1, d2, m2, y2) {
-  const isNoFine = (() => {
-    const happiestPath = y1 < y2;
+  const isFine = (() => {
+    const isHappiestPath = y1 < y2;
 
-    if (happiestPath) {
-      return true;
-    }
+    if (isHappiestPath) return false;
 
-    const yearIsDueYear = y1 === y2;
-    const monthPreceedsDueMonth = m1 < m2;
-    const monthSavesUs = yearIsDueYear && monthPreceedsDueMonth;
+    const isYearDueYear = y1 === y2;
+    const isMonthBeforeDueMonth = m1 < m2;
+    const isMonthSavingUs = isYearDueYear && isMonthBeforeDueMonth;
 
-    if (monthSavesUs) {
-      return true;
-    }
+    if (isMonthSavingUs) return false;
 
-    const yearIsDueYearOrEarlier = y1 <= y2;
-    const monthIsDueMonthOrEarlier = m1 <= m2;
-    const dayPreceedsDueDay = d1 < d2;
-    const daySavesUs =
-      yearIsDueYearOrEarlier && monthIsDueMonthOrEarlier && dayPreceedsDueDay;
+    const isYearDueYearOrEarlier = y1 <= y2;
+    const isMonthDueMonthOrEarlier = m1 <= m2;
+    const isDayBeforeDueDay = d1 < d2;
+    const isDaySavingUs =
+      isYearDueYearOrEarlier && isMonthDueMonthOrEarlier && isDayBeforeDueDay;
 
-    if (daySavesUs) {
-      return true;
-    }
+    if (isDaySavingUs) return false;
 
-    return false;
+    return true;
   })();
 
-  if (isNoFine) {
-    return 0;
-  }
+  if (!isFine) return 0;
 
   const fine = (() => {
-    const yearIsValid = y1 <= y2;
-    const monthIsDueMonthOrEarlier = m1 <= m2;
+    const isYearValid = y1 <= y2;
+    const isMonthDueMonthOrEarlier = m1 <= m2;
 
-    const calculateFineUsingDays = yearIsValid && monthIsDueMonthOrEarlier;
+    const isFineCalculatedUsingDays = isYearValid && isMonthDueMonthOrEarlier;
 
-    const calculateFineUsingMonths = yearIsValid;
+    const isFineCalculatedUsingMonths = isYearValid;
 
-    if (calculateFineUsingDays) {
+    if (isFineCalculatedUsingDays) {
       const daysLate = d1 - d2;
       const fineRate = 15;
       const fineToReturn = daysLate * fineRate;
       return fineToReturn;
-    } else if (calculateFineUsingMonths) {
+    } else if (isFineCalculatedUsingMonths) {
       const monthsLate = m1 - m2;
       const fineRate = 500;
       const fineToReturn = monthsLate * fineRate;
