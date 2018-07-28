@@ -7,15 +7,13 @@ function workbook(_, maxProbsPerPage, arr) {
 
     arr.forEach(probCount => {
       const shouldStartOnNextPage = pageToProbs[currentPage] !== undefined;
-      if (shouldStartOnNextPage) {
-        currentPage++;
-      }
+      if (shouldStartOnNextPage) currentPage++;
 
       let probsOnAPage = 0;
 
       for (let problemNumber = 1; problemNumber <= probCount; problemNumber++) {
-        const probBelongsOnCurrentPage = probsOnAPage < maxProbsPerPage;
-        if (probBelongsOnCurrentPage) {
+        const shouldProbBeOnCurrentPage = probsOnAPage < maxProbsPerPage;
+        if (shouldProbBeOnCurrentPage) {
           const currentPageAlreadyHasProb =
             pageToProbs[currentPage] !== undefined;
           if (currentPageAlreadyHasProb) {
@@ -40,14 +38,12 @@ function workbook(_, maxProbsPerPage, arr) {
 
   let specialProbsCount = 0;
 
-  Object.entries(pageToProbsDict).forEach(([page, probColl]) => {
+  Object.entries(pageToProbsDict).forEach(([page, probColl]) =>
     probColl.forEach(prob => {
       const specialProbExists = Number(prob) === Number(page);
-      if (specialProbExists) {
-        specialProbsCount++;
-      }
-    });
-  });
+      if (specialProbExists) specialProbsCount++;
+    })
+  );
 
   return specialProbsCount;
 }
