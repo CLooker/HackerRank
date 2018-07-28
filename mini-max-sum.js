@@ -1,24 +1,26 @@
 // https://www.hackerrank.com/challenges/mini-max-sum/problem
 
-function miniMaxSum(arr) {
-  const maxAndMin = arr
-    .reduce(
-      (newArr, n, index) =>
-        newArr.concat(
-          arr
-            .filter((num, ind) => index !== ind)
-            .reduce((total, curr) => (total += curr), 0)
-        ),
-      []
-    )
-    .reduce(
-      ({ min, max }, n, index) => {
-         if (index === 0) {return {min: n, max: n}};
-         (n > max) && (max = n);
-         (n < min) && (min = n);
-         return {min, max};
-      },
-      { min: null, max: null }
-    );
-  console.log(`${maxAndMin.min} ${maxAndMin.max}`);
-}
+const miniMaxSum = posIntegers => {
+  const sums = posIntegers.map((posInteger, i) => {
+    return posIntegers.reduce((sum, otherPosInteger, j) => {
+      const isSameIndex = i === j;
+      return isSameIndex ? sum : sum + otherPosInteger;
+    }, 0);
+  });
+
+  let miniSum;
+  let maxSum;
+
+  sums.forEach(sum => {
+    if (!miniSum) miniSum = sum;
+    if (!maxSum) maxSum = sum;
+
+    const isMiniSum = sum < miniSum;
+    if (isMiniSum) miniSum = sum;
+
+    const isMaxSum = sum > maxSum;
+    if (isMaxSum) maxSum = sum;
+  });
+
+  console.log(miniSum, maxSum);
+};
