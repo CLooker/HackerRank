@@ -1,26 +1,21 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem
 
-// declarative, immutable, implict return
-const solve = (a0, a1, a2, b0, b1, b2) =>
-  [[a0, b0], [a1, b1], [a2, b2]].reduce(
-    (ans, scorePairArr) =>
-      scorePairArr[0] > scorePairArr[1]
-        ? [++ans[0], ans[1]]
-        : scorePairArr[0] < scorePairArr[1] ? [ans[0], ++ans[1]] : ans,
-    [0, 0]
-  );
+function compareTriplets(aliceRatings, bobRatings) {
+  const ratingPairs = aliceRatings.map((aliceRating, i) => {
+    const bobRating = bobRatings[i];
+    return [aliceRating, bobRating];
+  });
 
-// imperative, mutable, explicit return
-function solve(a0, a1, a2, b0, b1, b2) {
-  const args = [[a0, b0], [a1, b1], [a2, b2]];
-  let playerA = 0;
-  let playerB = 0;
-  for (let i = 0; i < args.length; i++) {
-    if (args[i][0] > args[i][1]) {
-      ++playerA;
-    } else if (args[i][0] < args[i][1]) {
-      ++playerB;
-    }
-  }
-  return [playerA, playerB];
+  let alicePoints = 0;
+  let bobPoints = 0;
+
+  ratingPairs.forEach(([aliceRating, bobRating]) => {
+    const isAlicePoint = aliceRating > bobRating;
+    if (isAlicePoint) alicePoints++;
+
+    const isBobPoint = bobRating > aliceRating;
+    if (isBobPoint) bobPoints++;
+  });
+
+  return [alicePoints, bobPoints];
 }
