@@ -4,14 +4,10 @@ function howManyGames(price, subtractFactor, priceFloor, totalMoney) {
   let totalGames = 0;
   const hasEnoughMoney = p => totalMoney >= p;
 
-  if (!hasEnoughMoney(price)) {
-    return totalGames;
-  }
+  if (!hasEnoughMoney(price)) return totalGames;
 
   while (price > priceFloor) {
-    if (!hasEnoughMoney(price)) {
-      return totalGames;
-    }
+    if (!hasEnoughMoney(price)) return totalGames;
     totalGames++;
     totalMoney -= price;
     price -= subtractFactor;
