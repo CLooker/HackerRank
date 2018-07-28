@@ -2,77 +2,64 @@
 
 function encryption(s) {
   const spaceless = s.split('').filter(l => l !== '');
-  const { length: L } = spaceless;
-  const Lroot = Math.sqrt(L);
-  const floor = Math.floor(Lroot);
-  const ceil = Math.ceil(Lroot);
 
-  const possibleRowAndColumnLengths = ((min, max) => {
+  const possibleRowAndColumnLengths = (() => {
+    const { length: L } = spaceless;
+    const Lroot = Math.sqrt(L);
+    const floor = Math.floor(Lroot);
+    const ceil = Math.ceil(Lroot);
+
     let possibleValues = [];
 
-    for (let i = min; i <= max; i++) {
-      possibleValues = [...possibleValues, i];
+    for (let i = floor; i <= ceil; i++) {
+      possibleValues = possibleValues.concat(i);
     }
 
     return possibleValues;
-  })(floor, ceil);
+  })();
 
-  const [rowLength, colLength] = (lengthsColl => {
-    let rLengthToReturn;
-    let cLengthToReturn;
+  const [rowLength, colLength] = (() => {
+    const isOnlyOneLengthToChoose = possibleRowAndColumnLengths.length < 2;
+    let [rLength] = possibleRowAndColumnLengths;
+    const cLength = isOnlyOneLengthToChoose
+      ? possibleRowAndColumnLengths[0]
+      : possibleRowAndColumnLengths[1];
 
-    if (lengthsColl.length < 2) {
-      rLengthToReturn = cLengthToReturn = lengthsColl[0];
-    } else {
-      [rLengthToReturn, cLengthToReturn] = lengthsColl;
-    }
+    const isValid = rLength * cLength >= spaceless.length;
 
-    const lengthsAreValid = ((r, c, l) => r * c >= l)(
-      rLengthToReturn,
-      cLengthToReturn,
-      L
-    );
+    if (!isValid) rLength = cLength;
 
-    if (!lengthsAreValid) {
-      rLengthToReturn = cLengthToReturn;
-    }
+    return [rLength, cLength];
+  })();
 
-    return [rLengthToReturn, cLengthToReturn];
-  })(possibleRowAndColumnLengths);
-
-  const rows = ((spacelessColl, rLength, cLength) => {
-    let spacelessCopy = [...spacelessColl];
+  const rows = (() => {
+    let spacelessCopy = [...spaceless];
     let rowsToReturn = [];
 
-    for (let i = 0; i < rLength; i++) {
-      const row = spacelessCopy.splice(0, cLength).join('');
-      rowsToReturn = [...rowsToReturn, row];
+    for (let i = 0; i < rowLength; i++) {
+      const row = spacelessCopy.splice(0, colLength).join('');
+      rowsToReturn = rowsToReturn.concat(row);
     }
 
     return rowsToReturn;
-  })(spaceless, rowLength, colLength);
+  })();
 
-  const cols = (rowsColl => {
-    const { length: maxColLength } = rowsColl[0];
+  const cols = (() => {
+    const { length: maxColLength } = rows[0];
 
     let colsToReturn = [];
 
     for (let i = 0; i < maxColLength; i++) {
-      const col = rowsColl.reduce((newCol, row, _) => {
+      const col = rows.reduce((newCol, row, _) => {
         const letter = row[i];
-
-        if (letter) {
-          return `${newCol}${letter}`;
-        }
-
-        return newCol;
+        return letter ? `${newCol}${letter}` : newCol;
       }, '');
 
       colsToReturn = [...colsToReturn, col];
     }
 
     return colsToReturn;
-  })(rows);
+  })();
 
   const encodedStr = cols.join(' ');
   return encodedStr;
