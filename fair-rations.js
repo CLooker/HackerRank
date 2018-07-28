@@ -1,9 +1,9 @@
+// https://www.hackerrank.com/challenges/fair-rations/problem
+
 function fairRations(B) {
   const bSum = B.reduce((sum, item) => sum + item);
   const isOdd = val => val % 2 !== 0;
-  if (isOdd(bSum)) {
-    return 'NO';
-  }
+  if (isOdd(bSum)) return 'NO';
 
   let totalLoaves = 0;
   const { length } = B;
@@ -11,9 +11,8 @@ function fairRations(B) {
   B.forEach((loaves, i) => {
     if (isOdd(loaves)) {
       for (let j = i + 1; j < length; j++) {
-        if (i === j) {
-          continue;
-        }
+        if (i === j) continue;
+
         const otherLoaves = B[j];
         if (isOdd(otherLoaves)) {
           for (let k = i; k <= j; k++) {
