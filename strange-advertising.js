@@ -1,15 +1,30 @@
 // https://www.hackerrank.com/challenges/strange-advertising/problem
 
-const viralAdvertising = n =>
-  Array.from(Array(n))
-    .reduce((days, _, i) => days.concat(++i), [])
-    .reduce(
-      (dailyLikeTotal, day) =>
-        day === 1
-          ? dailyLikeTotal.concat(2)
-          : dailyLikeTotal.concat(
-              Math.floor(dailyLikeTotal[dailyLikeTotal.length - 1] * 3 / 2)
-            ),
-      []
-    )
-    .reduce((totalLikes, dailyLikes) => totalLikes + dailyLikes);
+const viralAdvertising = daysCount => {
+  const days = (() => {
+    let arr = [];
+    for (let day = 1; day <= daysCount; day++) {
+      arr.push(day);
+    }
+    return arr;
+  })();
+
+  const dailyLikesTotals = (() => {
+    let totals = [];
+
+    days.forEach(day => {
+      const shouldAddTwo = day === 1;
+      if (shouldAddTwo) return totals.push(2);
+
+      const lastDayTotal = totals[totals.length - 1];
+      const thisDayTotal = Math.floor((lastDayTotal * 3) / 2);
+      totals.push(thisDayTotal);
+    });
+
+    return totals;
+  })();
+
+  return dailyLikesTotals.reduce(
+    (totalLikes, dayLikes) => totalLikes + dayLikes
+  );
+};
