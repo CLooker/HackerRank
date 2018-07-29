@@ -1,46 +1,26 @@
 // https://www.hackerrank.com/challenges/time-conversion/problem
 
-// clean, but not so readable
-function timeConversion(s) {
-  let convertThis = parseInt(s.slice(0, 2));
-  const thisPartIsGood = s.slice(3, s.length - 2);
-  s.match(/P/g)
-    ? convertThis < 12 && (convertThis += 12)
-    : s.match(/A/g) && convertThis === 12
-      ? (convertThis = "00")
-      : convertThis < 10 && (convertThis = `0${convertThis}`);
+const timeConversion = time => {
+  let timeToAlter = parseInt(time.slice(0, 2));
+  let timeToKeep = time.slice(3, time.length - 2);
 
-  return `${convertThis}:${thisPartIsGood}`;
-}
-
-// maybe less ugly, but still readable
-function timeConversion(s) {
-  let convertThis = parseInt(s.slice(0, 2));
-  const thisPartIsGood = s.slice(3, s.length - 2);
-  if (s.match(/P/g)) {
-    convertThis < 12 && (convertThis += 12);
-  } else if (s.match(/A/g)) {
-    convertThis === 12
-      ? (convertThis = "00")
-      : convertThis < 10 && (convertThis = `0${convertThis}`);
+  const isPM = time.match(/P/g);
+  if (isPM) {
+    const isMilitaryFormat = timeToAlter >= 12;
+    if (!isMilitaryFormat) timeToAlter += 12;
   }
-  return `${convertThis}:${thisPartIsGood}`;
-}
 
-// kind of ugly
-function timeConversion(s) {
-  let convertThis = parseInt(s.slice(0, 2));
-  const thisPartIsGood = s.slice(3, s.length - 2);
-  if (s.match(/P/g)) {
-    if (convertThis < 12) {
-      convertThis += 12;
-    }
-  } else if (s.match(/A/g)) {
-    if (convertThis === 12) {
-      convertThis = "00";
-    } else if (convertThis < 10) {
-      convertThis = `0${convertThis}`;
+  const isAM = time.match(/A/g);
+  if (isAM) {
+    const doesNeedLeadingZeros = timeToAlter === 12;
+    if (doesNeedLeadingZeros) {
+      timeToAlter = '00';
+    } else {
+      const doesNeedLeadingZero = timeToAlter < 10;
+      if (doesNeedLeadingZero) timeToAlter = `0${timeToAlter}`;
     }
   }
-  return `${convertThis}:${thisPartIsGood}`;
-}
+
+  const convertedTime = `${timeToAlter}:${timeToKeep}`;
+  return convertedTime;
+};
