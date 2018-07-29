@@ -1,34 +1,22 @@
 // https://www.hackerrank.com/challenges/repeated-string/problem
 
-// declarative, implicit return, minimalistic
-const repeatedString = (s, n) =>
-  s.split("").filter(l => l === "a").length * Math.floor(n / s.length) +
-  Array.from(Array(n % s.length))
-    .reduce((additional, _, i) => (additional += s[i]), "")
-    .split("")
-    .filter(l => l === "a").length;
+const repeatedString = (repeatedStr, takeUntil) => {
+  const fullRepeatACount = (() => {
+    const aCount = [...repeatedStr].filter(l => l === 'a').length;
+    const repeatedMax = Math.floor(takeUntil / repeatedStr.length);
+    return aCount * repeatedMax;
+  })();
 
-// declarative
-function repeatedString(s, n) {
-  const initialCount =
-    s.split("").filter(l => l === "a").length * Math.floor(n / s.length);
-  const postCount = Array.from(Array(n % s.length))
-    .reduce((additional, _, i) => (additional += s[i]), "")
-    .split("")
-    .filter(l => l === "a").length;
-  return initialCount + postCount;
-}
+  const subStrACount = (() => {
+    const subStrLength = takeUntil % repeatedStr.length;
+    const subStr = repeatedStr.slice(0, subStrLength);
+    let aCount = 0;
+    for (const letter of [...subStr]) {
+      const isA = letter === 'a';
+      if (isA) aCount++;
+    }
+    return aCount;
+  })();
 
-// imperative
-function repeatedString(s, n) {
-  const aCount = s.split("").filter(l => l === "a").length;
-  const x = Math.floor(n / s.length);
-  const totalAs = aCount * x;
-  const leftOverLength = n % s.length;
-  let partial = "";
-  for (let i = 0; i < leftOverLength; i++) {
-    partial += s[i];
-  }
-  const partialAs = partial.split("").filter(l => l === "a").length;
-  return totalAs + partialAs;
-}
+  return fullRepeatACount + subStrACount;
+};
