@@ -7,11 +7,8 @@ const solve = (chocNums, dayOfBirth, monthOfBirth) => {
   const validChocNumSeqs = chocNums.filter((chocNum, chocNumIdx) => {
     const sliceEnd = chocNumIdx + targetLength;
     const chocNumSeq = chocNums.slice(chocNumIdx, sliceEnd);
-    const chocNumSeqTotal = chocNumSeq.reduce(
-      (total, chocNum) => total + chocNum,
-      0
-    );
-    const isValidSum = chocNumSeqTotal === targetSum;
+    const chocNumSeqSum = chocNumSeq.reduce((sum, chocNum) => sum + chocNum, 0);
+    const isValidSum = chocNumSeqSum === targetSum;
     return isValidSum;
   });
 
