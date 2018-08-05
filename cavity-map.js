@@ -52,38 +52,29 @@ const cavityMap = grid =>
     })();
     if (isBorderRow) return row;
 
-    const newRow = (() => {
-      const newRowArr = [...row].map((cell, cellIdx) => {
-        const isBorderCell = (() => {
-          const isFirstCell = cellIdx === 0;
-          const isLastCell = cellIdx === row.length - 1;
-          return isFirstCell || isLastCell;
+    const newRow = [...row].map((cell, cellIdx) => {
+      const isBorderCell = (() => {
+        const isFirstCell = cellIdx === 0;
+        const isLastCell = cellIdx === row.length - 1;
+        return isFirstCell || isLastCell;
+      })();
+      if (isBorderCell) return cell;
+
+      const newCell = (() => {
+        const isCavity = (() => {
+          const leftCell = row[cellIdx - 1];
+          const rightCell = row[cellIdx + 1];
+          const topCell = grid[rowIdx - 1][cellIdx];
+          const bottomCell = grid[rowIdx + 1][cellIdx];
+          const borderMax = Math.max(leftCell, rightCell, topCell, bottomCell);
+          const isMax = Number(cell) > borderMax;
+          return isMax;
         })();
-        if (isBorderCell) return cell;
+        return isCavity ? 'X' : cell;
+      })();
 
-        const newCell = (() => {
-          const isCavity = (() => {
-            const leftCell = row[cellIdx - 1];
-            const rightCell = row[cellIdx + 1];
-            const topCell = grid[rowIdx - 1][cellIdx];
-            const bottomCell = grid[rowIdx + 1][cellIdx];
-            const borderMax = Math.max(
-              leftCell,
-              rightCell,
-              topCell,
-              bottomCell
-            );
-            const isMax = Number(cell) > borderMax;
-            return isMax;
-          })();
-          return isCavity ? 'X' : cell;
-        })();
+      return newCell;
+    });
 
-        return newCell;
-      });
-
-      return newRowArr.join('');
-    })();
-
-    return newRow;
+    return newRow.join('');
   });
