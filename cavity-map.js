@@ -1,5 +1,6 @@
 // https://www.hackerrank.com/challenges/cavity-map/problem
 
+// function extraction
 const cavityMap = grid => {
   const isPossibleCavity = (collLength, collMemberIdx) => {
     const isFirst = collMemberIdx === 0;
