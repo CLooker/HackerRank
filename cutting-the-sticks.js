@@ -22,7 +22,7 @@ const cutTheSticks = sticks => {
 };
 
 // declarative, immutable, recursive, function extraction
-const handleSticks = ({ sticks, sticksLeftPerTurn, shortestStick }) => {
+const handleSticks = ({ sticks, sticksLeftPerTurn }) => {
   if (!sticks.length) return sticksLeftPerTurn;
 
   return handleSticks({
