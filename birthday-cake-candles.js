@@ -1,24 +1,33 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem
 
-// declarative, immutable
-function birthdayCakeCandles(n, ar) {
-  const tallest = ar.reduce((tallest, height) => height >= tallest ? height : tallest, 0);
-  return ar.filter(height => height === tallest).length;
-}
+const birthdayCakeCandles = candleHeights => {
+  const tallest = candleHeights.reduce(
+    (tallest, candleHeight) =>
+      candleHeight > tallest ? candleHeight : tallest,
+    0
+  );
 
-// imperative,  mutable
-function birthdayCakeCandles(n, ar) {
+  const tallestCount = candleHeights.filter(
+    candleHeight => candleHeight === tallest
+  ).length;
+
+  return tallestCount;
+};
+
+const birthdayCakeCandles = candleHeights => {
   let tallest = 0;
-  for (let i = 0; i < ar.length; i++) {
-    if (ar[i] >= tallest) {
-      tallest = ar[i];
-    }
+
+  for (const candleHeight of candleHeights) {
+    const isTallest = candleHeight > tallest;
+    if (isTallest) tallest = candleHeight;
   }
-  let answer = 0;
-  for (let i = 0; i < ar.length; i++) {
-    if (ar[i] === tallest) {
-      ++answer;
-    }
+
+  let tallestCount = 0;
+
+  for (const candleHeight of candleHeights) {
+    const isEqualToTallest = candleHeight === tallest;
+    if (isEqualToTallest) tallestCount++;
   }
-  return answer;
-}
+
+  return tallestCount;
+};
