@@ -1,31 +1,37 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem
 
-function fairRations(B) {
-  const bSum = B.reduce((sum, item) => sum + item);
-  const isOdd = val => val % 2 !== 0;
-  if (isOdd(bSum)) return 'NO';
+const fairRations = loafTotals => {
+  const totalLoaves = loafTotals.reduce(
+    (totalLoaves, loafTotal) => totalLoaves + loafTotal
+  );
+  const isOdd = num => num % 2 !== 0;
+  if (isOdd(totalLoaves)) return 'NO';
 
-  let totalLoaves = 0;
-  const { length } = B;
+  let loavesToDistribute = 0;
 
-  B.forEach((loaves, i) => {
-    if (isOdd(loaves)) {
-      for (let j = i + 1; j < length; j++) {
-        if (i === j) continue;
+  loafTotals.forEach((loafTotal, loafTotalIndex) => {
+    if (!isOdd(loafTotal)) return;
 
-        const otherLoaves = B[j];
-        if (isOdd(otherLoaves)) {
-          for (let k = i; k <= j; k++) {
-            B[k] = 2;
-          }
-          const distance = Math.abs(i - j);
-          const loavesToMakeEven = distance * 2;
-          totalLoaves += loavesToMakeEven;
-          break;
-        }
+    for (
+      let laterLoafTotalIndex = loafTotalIndex + 1;
+      laterLoafTotalIndex < loafTotals.length;
+      laterLoafTotalIndex++
+    ) {
+      const laterLoafTotal = loafTotals[laterLoafTotalIndex];
+      if (!isOdd(laterLoafTotal)) continue;
+
+      // make all intermediate totals even
+      // so we won't worry about them as we loop
+      for (let index = loafTotalIndex; index <= laterLoafTotalIndex; index++) {
+        loafTotals[index] = 2;
       }
+
+      const distance = Math.abs(loafTotalIndex - laterLoafTotalIndex);
+      const loavesToMakeEven = distance * 2;
+      loavesToDistribute += loavesToMakeEven;
+      break;
     }
   });
 
-  return totalLoaves;
-}
+  return loavesToDistribute;
+};
