@@ -11,11 +11,9 @@ function climbingLeaderboard(allScores, aliceScores) {
       const lastUniqueScore = lastVal(uniqueScores);
       const isNewUniqueScore = score > lastUniqueScore;
 
-      if (!lastUniqueScore || isNewUniqueScore) {
-        uniqueScores.push(score);
-        return uniqueScores;
-      }
+      if (lastUniqueScore && !isNewUniqueScore) return uniqueScores;
 
+      uniqueScores.push(score);
       return uniqueScores;
     }, []);
   };
