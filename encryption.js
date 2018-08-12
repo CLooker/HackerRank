@@ -1,20 +1,17 @@
 // https://www.hackerrank.com/challenges/encryption/problem
 
-function encryption(s) {
-  const spaceless = s.split('').filter(l => l !== '');
+function encryption(str) {
+  const spacelessStr = [...str].filter(char => char !== '');
 
   const possibleRowAndColumnLengths = (() => {
-    const { length: L } = spaceless;
-    const Lroot = Math.sqrt(L);
-    const floor = Math.floor(Lroot);
-    const ceil = Math.ceil(Lroot);
+    const { length } = spacelessStr;
+    const lengthRoot = Math.sqrt(length);
+    const floor = Math.floor(lengthRoot);
+    const ceil = Math.ceil(lengthRoot);
 
     let possibleValues = [];
-
-    for (let i = floor; i <= ceil; i++) {
-      possibleValues = possibleValues.concat(i);
-    }
-
+    for (let possibleValue = floor; possibleValue <= ceil; possibleValue++)
+      possibleValues.push(possibleValue);
     return possibleValues;
   })();
 
@@ -25,7 +22,7 @@ function encryption(s) {
       ? possibleRowAndColumnLengths[0]
       : possibleRowAndColumnLengths[1];
 
-    const isValid = rLength * cLength >= spaceless.length;
+    const isValid = rLength * cLength >= spacelessStr.length;
 
     if (!isValid) rLength = cLength;
 
@@ -33,7 +30,7 @@ function encryption(s) {
   })();
 
   const rows = (() => {
-    let spacelessCopy = [...spaceless];
+    let spacelessCopy = [...spacelessStr];
     let rowsToReturn = [];
 
     for (let i = 0; i < rowLength; i++) {
