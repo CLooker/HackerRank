@@ -3,15 +3,15 @@
 function caesarCipher(message, rotationNum) {
   const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
 
-  const firstLetterIdx = (() => {
-    const isRotationNumInBounds = rotationNum < alphabet.length;
-    if (isRotationNumInBounds) return rotationNum;
-
-    const inBoundsRotationNum = rotationNum % alphabet.length;
-    return inBoundsRotationNum;
-  })();
-
   const rotatedAlphabet = (() => {
+    const firstLetterIdx = (() => {
+      const isRotationNumInBounds = rotationNum < alphabet.length;
+      if (isRotationNumInBounds) return rotationNum;
+
+      const inBoundsRotationNum = rotationNum % alphabet.length;
+      return inBoundsRotationNum;
+    })();
+
     const rotatedStart = alphabet.slice(firstLetterIdx);
     const rotatedEnd = alphabet.slice(0, firstLetterIdx);
     return [...rotatedStart, ...rotatedEnd];
