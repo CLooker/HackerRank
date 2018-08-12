@@ -1,20 +1,20 @@
 // https://www.hackerrank.com/challenges/bomber-man/problem
 
-function bomberMan(n, grid) {
+function bomberMan(time, grid) {
   // no changes made
-  if (n <= 1) return grid;
+  if (time <= 1) return grid;
 
   const isEven = num => num % 2 === 0;
 
   // an even timer guarantees a grid full of bombs
-  if (isEven(n)) {
+  if (isEven(time)) {
     const gridFullOfBombs = grid.map(row => [...row].map(_ => 'O').join(''));
     return gridFullOfBombs;
   }
 
   // every fifth second,
   // the state of the board will be the original
-  n = (n % 4) + 4;
+  time = (time % 4) + 4;
 
   // returns obj mapping rows to array of timers
   const rowsToTimersMap = (() => {
@@ -97,7 +97,7 @@ function bomberMan(n, grid) {
 
   // start timer
   let localTime = 1;
-  while (localTime <= n) {
+  while (localTime <= time) {
     isEven(localTime) ? addBombsOrDecrementTimers() : decrementAllTimers();
     detonate();
     localTime++;
