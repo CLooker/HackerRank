@@ -1,8 +1,8 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem
 
 function compareTriplets(aliceRatings, bobRatings) {
-  const ratingPairs = aliceRatings.map((aliceRating, i) => {
-    const bobRating = bobRatings[i];
+  const ratingPairs = aliceRatings.map((aliceRating, ratingIndex) => {
+    const bobRating = bobRatings[ratingIndex];
     return [aliceRating, bobRating];
   });
 
