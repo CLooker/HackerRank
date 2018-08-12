@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/counting-valleys/problem
 
-const countingValleys = (stepsToTake, path) => {
+const countingValleys = (_, steps) => {
   let position = 0;
   let valleySteps = 0;
 
-  return path.split('').reduce((valleyCount, step) => {
+  return [...steps].reduce((valleyCount, step) => {
     const isUpStep = step === 'U';
     isUpStep ? position++ : position--;
 
