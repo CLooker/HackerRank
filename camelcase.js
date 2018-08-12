@@ -1,23 +1,26 @@
 // https://www.hackerrank.com/challenges/camelcase/problem
-// This exercise times out when using immutable data structures
 
-const camelcase = s => {
-  const firstLetterIndexes = s.split('').filter(letter => {
+const camelcase = lettersStr => {
+  const firstLetterIndexes = [...lettersStr].filter(letter => {
     const isCapitalized = letter.toUpperCase() === letter;
     return isCapitalized;
   });
 
-  const isOnlyOneWord = firstLetterIndexes.length === 0;
-  if (isOnlyOneWord) return 1;
+  const isLettersStrOneWord = firstLetterIndexes.length === 0;
+  if (isLettersStrOneWord) return 1;
 
   const words = (() => {
     const [firstCapitalizedLetterIdx] = firstLetterIndexes;
-    const firstWord = s.slice(0, firstCapitalizedLetterIdx);
+    const firstWord = lettersStr.slice(0, firstCapitalizedLetterIdx);
 
     // start with an array with the first word already in it
     return firstLetterIndexes.reduce(
       (words, firstLetterIndex, i) => {
-        const nextWord = s.slice(firstLetterIndex, firstLetterIndexes[i + 1]);
+        const nextWord = lettersStr.slice(
+          firstLetterIndex,
+          firstLetterIndexes[i + 1]
+        );
+        // times out if you `return words.concat(nextWord)`
         words.push(nextWord);
         return words;
       },
@@ -30,21 +33,26 @@ const camelcase = s => {
 
 ///////////////////////////////////
 
-const getIndicesColl = coll =>
-  coll
-    .split('')
-    .reduce(
-      (indices, l, i) =>
-        l === l.toUpperCase() ? indices.push(i) && indices : indices,
-      [0]
-    );
+const getFirstLetterIndices = str =>
+  [...str].reduce(
+    (firstLetterIndices, letter, letterIdx) => {
+      const isLetterUpperCase = letter === letter.toUpperCase();
+      if (!isLetterUpperCase) return firstLetterIndices;
 
-const getWordColl = (originalStr, indicesColl) =>
-  indicesColl.reduce(
-    (wordsColl, idx, i) =>
-      wordsColl.push(originalStr.substring(idx, indicesColl[i + 1])) &&
-      wordsColl,
-    []
+      firstLetterIndices.push(letterIdx);
+      return firstLetterIndices;
+    },
+    [0] // start with 0 bc first index is first letter but won't be capitalized
   );
 
-const camelcase = s => getWordColl(s, getIndicesColl(s)).length;
+const getWords = (str, firstLetterIndices) =>
+  firstLetterIndices.map((firstLetterIndex, currCollIndex) => {
+    const word = str.substring(
+      firstLetterIndex,
+      firstLetterIndices[currCollIndex + 1]
+    );
+    return word;
+  });
+
+const camelcase = lettersStr =>
+  getWords(lettersStr, getFirstLetterIndices(lettersStr)).length;
