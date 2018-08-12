@@ -8,12 +8,7 @@ function bomberMan(n, grid) {
 
   // an even timer guarantees a grid full of bombs
   if (isEven(n)) {
-    const gridFullOfBombs = grid.map(row =>
-      row
-        .split('')
-        .map(item => 'O')
-        .join('')
-    );
+    const gridFullOfBombs = grid.map(row => [...row].map(_ => 'O').join(''));
     return gridFullOfBombs;
   }
 
@@ -27,7 +22,7 @@ function bomberMan(n, grid) {
 
     grid.forEach((row, rowIdx) => {
       rowsToTimers[rowIdx] = [];
-      row.split('').forEach(rowItem => {
+      [...row].forEach(rowItem => {
         const isBomb = rowItem === 'O';
         const rowItemTimer = isBomb ? 3 : -1;
         rowsToTimers[rowIdx].push(rowItemTimer);
@@ -103,11 +98,7 @@ function bomberMan(n, grid) {
   // start timer
   let localTime = 1;
   while (localTime <= n) {
-    if (isEven(localTime)) {
-      addBombsOrDecrementTimers();
-    } else {
-      decrementAllTimers();
-    }
+    isEven(localTime) ? addBombsOrDecrementTimers() : decrementAllTimers();
     detonate();
     localTime++;
   }
@@ -123,21 +114,6 @@ function bomberMan(n, grid) {
     });
     return row;
   });
-
-  // const finalGrid = (() => {
-  //   let grid = [];
-
-  //   Object.values(rowsToTimersMap).forEach(timers => {
-  //     let row = '';
-  //     timers.forEach(timer => {
-  //       const hasBomb = hasTimer(timer);
-  //       row = row.concat(hasBomb ? 'O' : '.');
-  //     });
-  //     grid.push(row);
-  //   });
-
-  //   return grid;
-  // })();
 
   return finalGrid;
 }
