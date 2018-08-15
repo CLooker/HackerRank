@@ -1,72 +1,72 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem
 
-const flatlandSpaceStations = (n, c) => {
-  const citiesWithStations = (() => {
+const flatlandSpaceStations = (totalCities, citiesWithSpaceStationsArr) => {
+  const citiesWithSpaceStationsDict = (() => {
     let dict = {};
 
-    const { length } = c;
-
-    for (let i = 0; i < length; i++) {
-      const cityWithStation = c[i];
-      dict[cityWithStation] = true;
+    const { length: totalCitiesWithSpaceStations } = citiesWithSpaceStationsArr;
+    for (
+      let cityWithSpaceStationIdx = 0;
+      cityWithSpaceStationIdx < totalCitiesWithSpaceStations;
+      cityWithSpaceStationIdx++
+    ) {
+      const cityWithSpaceStation =
+        citiesWithSpaceStationsArr[cityWithSpaceStationIdx];
+      dict[cityWithSpaceStation] = true;
     }
 
     return dict;
   })();
 
-  const distUntilFirstStation = (() => {
+  const distUntilFirstSpaceStation = (() => {
     let dist = 0;
 
-    for (let city = 0; city < n; city++) {
-      const cityHasStation = citiesWithStations[city];
-      if (cityHasStation) break;
-
+    for (let city = 0; city < totalCities; city++) {
+      const doesCityHaveSpaceStation = citiesWithSpaceStationsDict[city];
+      if (doesCityHaveSpaceStation) break;
       dist++;
     }
 
     return dist;
   })();
 
-  const distBetweenLastCityAndLastStation = (() => {
+  const distBetweenLastCityAndLastSpaceStation = (() => {
     let dist = 0;
 
-    for (let city = n - 1; city >= 0; city--) {
-      const cityHasStation = citiesWithStations[city];
-      if (cityHasStation) break;
-
+    for (let city = totalCities - 1; city >= 0; city--) {
+      const doesCityHaveSpaceStation = citiesWithSpaceStationsDict[city];
+      if (doesCityHaveSpaceStation) break;
       dist++;
     }
 
     return dist;
   })();
 
-  const greatestDistBetweenStations = (() => {
-    let currentDist = 0;
-    let maxDist = 0;
+  const greatestDistUntilSpaceStationForMiddleCity = (() => {
+    const greatestDistBetweenSpaceStations = (() => {
+      let currentDist = 0;
+      let maxDist = 0;
 
-    for (let city = 0; city < n; city++) {
-      const cityHasStation = citiesWithStations[city];
-      if (cityHasStation) {
-        const shouldUpdateMax = currentDist > maxDist;
-        if (shouldUpdateMax) maxDist = currentDist;
-
-        currentDist = 0;
-        continue;
+      for (let city = 0; city < totalCities; city++) {
+        const doesCityHaveSpaceStation = citiesWithSpaceStationsDict[city];
+        if (doesCityHaveSpaceStation) {
+          const shouldUpdateMax = currentDist > maxDist;
+          if (shouldUpdateMax) maxDist = currentDist;
+          currentDist = 0;
+        } else currentDist++;
       }
 
-      currentDist++;
-    }
+      return maxDist;
+    })();
 
-    return maxDist;
+    return Math.ceil(greatestDistBetweenSpaceStations / 2);
   })();
 
-  const greatestDistForMiddleCity = Math.ceil(greatestDistBetweenStations / 2);
-
-  const maxDistance = Math.max(
-    distUntilFirstStation,
-    distBetweenLastCityAndLastStation,
-    greatestDistForMiddleCity
+  const maxDist = Math.max(
+    distUntilFirstSpaceStation,
+    distBetweenLastCityAndLastSpaceStation,
+    greatestDistUntilSpaceStationForMiddleCity
   );
 
-  return maxDistance;
+  return maxDist;
 };
