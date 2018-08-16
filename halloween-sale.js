@@ -20,3 +20,35 @@ function howManyGames(price, subtractFactor, priceFloor, totalMoney) {
 
   return totalGames;
 }
+
+// alternative
+const howManyGames = (
+  gamePrice,
+  subtractFactor,
+  gamePriceFloor,
+  totalMoney
+) => {
+  const isGamePriceMoreThanFloor = () => gamePrice > gamePriceFloor;
+  const hasEnoughMoney = price => totalMoney >= price;
+
+  let totalGames = 0;
+
+  const buyGame = price => {
+    totalMoney -= price;
+    totalGames++;
+  };
+
+  const decrementGamePrice = () => (gamePrice -= subtractFactor);
+
+  while (isGamePriceMoreThanFloor()) {
+    if (!hasEnoughMoney(gamePrice)) return totalGames;
+    buyGame(gamePrice);
+    decrementGamePrice();
+  }
+
+  while (hasEnoughMoney(gamePriceFloor)) {
+    buyGame(gamePriceFloor);
+  }
+
+  return totalGames;
+};
