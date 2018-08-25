@@ -1,14 +1,18 @@
 // https://www.hackerrank.com/challenges/jumping-on-the-clouds/problem
 
 const jumpingOnClouds = clouds => {
-  let jumps = -1;
+  let jumpsTotal = 0;
 
-  for (let cloudIdx = 0; cloudIdx < clouds.length; ) {
-    const twoIndexJumpCloud = clouds[cloudIdx + 2];
-    const isThunderHead = twoIndexJumpCloud !== 0;
-    isThunderHead ? cloudIdx++ : (cloudIdx += 2);
-    jumps++;
+  for (let cloudIdx = 0; cloudIdx < clouds.length - 1; ) {
+    const isMaxJumpPossible = (() => {
+      const isThereTwoCloudsLeft = cloudIdx !== clouds.length - 1;
+      const isMaxJumpCloudSafe = clouds[cloudIdx + 2] !== 1;
+      return isThereTwoCloudsLeft && isMaxJumpCloudSafe;
+    })();
+
+    cloudIdx += isMaxJumpPossible ? 2 : 1;
+    jumpsTotal++;
   }
 
-  return jumps;
+  return jumpsTotal;
 };
