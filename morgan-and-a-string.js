@@ -59,11 +59,11 @@ const morganAndString = (...strings) => {
     );
 
     // find the index of the lexicographically minimum string
-    let strIdx = getLexMinIdx(slices);
+    const strIdx = getLexMinIdx(slices);
 
     // grab the $charIdx of the string who "won"
     // and increment $charIdx to update it
-    let charIdx = strIdxToCharIdx[strIdx]++;
+    const charIdx = strIdxToCharIdx[strIdx]++;
 
     // add the "winning" character
     lexMinCombo += strings[strIdx][charIdx];
