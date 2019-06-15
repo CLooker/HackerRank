@@ -1,3 +1,4 @@
 # HackerRank
 
-These are my solutions to some Hacker Rank problems. There is a link in each file to the actual problem. I generally try to code declaratively, however some solutions are only solvable using imperative styles (mutating arrays in place, etc).
+These are my solutions to some Hacker Rank problems in JavaScript and (some)  
+Clojure. There is a link to the actual problem (in the js files).
