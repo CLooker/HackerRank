@@ -2,10 +2,10 @@
   (reduce
    (fn [total d]
      (let [fruit-coord (+ tree-coord d)
-           dit-hit?? (and
-                      (>= fruit-coord house-start)
-                      (<= fruit-coord house-end))]
-       (if dit-hit?? (inc total) total)))
+           did-hit? (and
+                     (>= fruit-coord house-start)
+                     (<= fruit-coord house-end))]
+       (if did-hit? (inc total) total)))
    0
    distances))
 

@@ -1,14 +1,14 @@
-(defn getNextMultiple [denominator integer]
-  (let [currInt (inc integer)]
-    (if (= 0 (mod currInt denominator))
-      currInt
-      (getNextMultiple denominator currInt))))
+(defn get-next-multiple [denominator integer]
+  (let [curr-int (inc integer)]
+    (if (= 0 (mod curr-int denominator))
+      curr-int
+      (get-next-multiple denominator curr-int))))
 
 (defn gradingStudents [grades]
   (map
    (fn [grade]
-     (let [nextFiveMultiple (getNextMultiple 5 grade)
-           shouldRetGrade? (or (< grade 38)
-                               (>= (- nextFiveMultiple grade) 3))]
-       (if shouldRetGrade? grade nextFiveMultiple)))
+     (let [next-five-multiple (get-next-multiple 5 grade)
+           should-ret-grade? (or (< grade 38)
+                                 (>= (- next-five-multiple grade) 3))]
+       (if should-ret-grade? grade next-five-multiple)))
    grades))

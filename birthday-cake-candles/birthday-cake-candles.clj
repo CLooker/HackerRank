@@ -1,5 +1,5 @@
-(defn birthdayCakeCandles [candleHeights]
-  (let [maxHeight (apply max candleHeights)
-        tallestCandles
-        (filter (fn [candleHeight] (= candleHeight maxHeight)) candleHeights)]
-    (count tallestCandles)))
+(defn birthdayCakeCandles [candle-heights]
+  (let [max-height (apply max candle-heights)
+        tallest-candles
+        (filter (fn [candle-height] (= candle-height max-height)) candle-heights)]
+    (count tallest-candles)))

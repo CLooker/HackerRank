@@ -1,14 +1,14 @@
-(defn compareTriplets [a b]
+(defn compareTriplets [xs ys]
   (reduce
-   (fn [ret index]
-     (let [[aPoints bPoints] ret
-           aItem (nth a index)
-           bItem (nth b index)
-           isAPoint (> aItem bItem)
-           isBPoint (< aItem bItem)]
+   (fn [ret i]
+     (let [[x-points y-points] ret
+           x (nth xs i)
+           y (nth ys i)
+           is-a-point? (> x y)
+           is-b-point? (< x y)]
        (cond
-         isAPoint (vector (inc aPoints) bPoints)
-         isBPoint (vector aPoints (inc bPoints))
+         is-a-point? [(inc x-points) y-points]
+         is-b-point? [x-points (inc y-points)]
          :else ret)))
-   (vector 0 0)
-   (range (count a))))
+   [0 0]
+   (range (count xs))))

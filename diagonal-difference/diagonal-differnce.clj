@@ -1,10 +1,10 @@
-(defn diagonal [matrix] (map-indexed (fn [index row] (nth row index)) matrix))
+(defn diagonal [matrix] (map-indexed (fn [i row] (nth row i)) matrix))
 
 (defn diagonalDifference [matrix]
-  (let [primaryDiagonal (diagonal matrix)
-        secondaryDiagonal (diagonal (reverse matrix))
-        primarySum (reduce + primaryDiagonal)
-        secondarySum (reduce + secondaryDiagonal)
-        maxSum (max primarySum secondarySum)
-        minSum (min primarySum secondarySum)]
-    (- maxSum minSum)))
+  (let [primary-diagonal (diagonal matrix)
+        secondary-diagonal (diagonal (reverse matrix))
+        primary-sum (reduce + primary-diagonal)
+        secondary-sum (reduce + secondary-diagonal)
+        max-sum (max primary-sum secondary-sum)
+        min-sum (min primary-sum secondary-sum)]
+    (- max-sum min-sum)))

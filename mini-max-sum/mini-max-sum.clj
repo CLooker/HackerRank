@@ -1,13 +1,13 @@
-(defn miniMaxSum [posInts]
+(defn miniMaxSum [pos-ints]
   (let
-   [sums (map (fn [pInt] (- (reduce + posInts) pInt)) posInts)
-    {miniSum :miniSum maxSum :maxSum}
+   [sums (map (fn [p-int] (- (reduce + pos-ints) p-int)) pos-ints)
+    {mini :mini max :max}
     (reduce
-     (fn [{miniSum :miniSum maxSum :maxSum} sum]
+     (fn [{mini :mini max :max} sum]
        (cond
-         (< sum miniSum) {:miniSum sum :maxSum maxSum}
-         (> sum maxSum) {:miniSum miniSum :maxSum sum}
-         :else {:miniSum miniSum :maxSum maxSum}))
-     {:miniSum (first sums) :maxSum (first sums)}
+         (< sum mini) {:mini sum :max max}
+         (> sum max) {:mini mini :max sum}
+         :else {:mini mini :max max}))
+     {:mini (first sums) :max (first sums)}
      sums)]
-    (prn miniSum maxSum)))
+    (prn mini max)))
