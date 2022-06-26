@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/a-very-big-sum/problem
-
 // declarative, immutable, implicit return
 const aVeryBigSum = ar => ar.reduce((total, number) => total + number);
 
