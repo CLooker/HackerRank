@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/plus-minus/problem
-
 const plusMinus = integers => {
   let plusCounter = 0;
   let minusCounter = 0;
