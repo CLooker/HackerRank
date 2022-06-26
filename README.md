@@ -1,4 +1,5 @@
 # HackerRank
 
-These are my solutions to some Hacker Rank problems in JavaScript and (some)  
-Clojure. There is a link to the actual problem (in the js files).
+These are solutions to HackerRank files.
+
+The problem's url is in the `url.txt` file or the `.js` file.
