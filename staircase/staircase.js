@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/staircase/problem
-
 const staircase = stairsCount => {
   let stairs = [];
 
