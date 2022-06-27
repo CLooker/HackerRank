@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/mini-max-sum/problem
-
 const miniMaxSum = posIntegers => {
   const sums = posIntegers.map((posInteger, i) => {
     return posIntegers.reduce((sum, otherPosInteger, j) => {
