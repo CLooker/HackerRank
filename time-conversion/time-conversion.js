@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/time-conversion/problem
-
 const timeConversion = time => {
   const [unformattedHH, mm, ssWithPeriod] = time.split(':');
 
