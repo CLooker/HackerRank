@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/birthday-cake-candles/problem
-
 const birthdayCakeCandles = candleHeights => {
   const tallest = candleHeights.reduce(
     (tallest, candleHeight) =>
