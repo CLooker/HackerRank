@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/grading/problem
-
 const getNextMultiple = (denominator, integer) => {
   let currInt = integer + 1;
 
