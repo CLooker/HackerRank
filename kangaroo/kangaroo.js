@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/kangaroo/problem
-
 const kangaroo = (xLoc, xJump, yLoc, yJump) => {
   const [behindJump, aheadJump] = xLoc > yLoc ? [yJump, xJump] : [xJump, yJump];
 
