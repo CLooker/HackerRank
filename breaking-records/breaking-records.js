@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem
-
 const breakingRecords = scores => {
   const records = scores.reduce(
     ({ high, low, newHighs, newLows }, score) => ({
