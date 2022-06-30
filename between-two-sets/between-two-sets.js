@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/between-two-sets/problem
-
 // (leftNums: Number[], rightNums: Number[]) -> Number[]
 const getTotalX = (leftNums, rightNums) => {
   const firstPossibleMiddleNum = leftNums[leftNums.length - 1];
