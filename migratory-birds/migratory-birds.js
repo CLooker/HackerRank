@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/migratory-birds/problem
-
 const pipe = (...fns) => initialData =>
   fns.reduce((updatedData, fn) => fn(updatedData), initialData);
 
