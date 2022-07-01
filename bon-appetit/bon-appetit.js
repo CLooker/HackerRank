@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/bon-appetit/problem
-
 // declarative
 function bonAppetit(n, k, b, ar) {
   const actual =
