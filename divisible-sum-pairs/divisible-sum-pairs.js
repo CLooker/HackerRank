@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/divisible-sum-pairs/problem
-
 const divisibleSumPairs = (_, divisor, nums) =>
   nums.reduce(
     (total, num, i) =>
