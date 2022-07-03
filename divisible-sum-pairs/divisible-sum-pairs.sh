@@ -1,20 +1,16 @@
 #!/bin/bash
 
-read line0
-read line1
+read ns_len divisor
+read -r -a ns
 
-divisor=$(echo "$line0" | cut -d ' ' -f 2)
-read -r -a ns <<< "$line1"
-ns_len="${#ns[@]}"
 result=0
-
 for i in "${!ns[@]}"; do
   n="${ns[i]}"
   
   for (( j=$((i + 1)); j < ns_len; j++ )); do
     nn="${ns[j]}"
     sum=$((n + nn))
-    remainder=$(expr $sum % $divisor)    
+    remainder=$((sum % divisor))    
   
     if ((remainder == 0)); then
       ((result++))
@@ -23,4 +19,4 @@ for i in "${!ns[@]}"; do
   
 done
 
-echo $result
+echo "$result"
