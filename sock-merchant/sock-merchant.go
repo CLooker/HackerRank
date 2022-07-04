@@ -12,14 +12,14 @@ func sockMerchant(ignored int32, colors []int32) int32 {
 
 	var pairCount int32 = 0
 	for _, freq := range freqByColor {
-		var pairables int32
+		var pairableCount int32
 		if freq%2 == 0 {
-			pairables = freq
+			pairableCount = freq
 		} else {
-			pairables = freq - 1
+			pairableCount = freq - 1
 		}
 
-		pairCount += (pairables / 2)
+		pairCount += (pairableCount / 2)
 	}
 
 	return pairCount
