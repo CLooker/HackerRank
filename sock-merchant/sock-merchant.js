@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/sock-merchant/problem
-
 const sockMerchant = (_, colors) => {
   const colorToTotal = colors.reduce((ret, color) => {
     ret[color] = color in ret ? ++ret[color] : 1;
