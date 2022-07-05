@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/electronics-shop/problem
-
 const getMoneySpent = (keyboardPrices, drivePrices, totalMoney) => {
   let mostExpensiveCombo = -1;
 
