@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/counting-valleys/problem
-
 const countingValleys = (_, steps) => {
   let position = 0;
   let valleySteps = 0;
