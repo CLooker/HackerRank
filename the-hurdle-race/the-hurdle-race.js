@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/the-hurdle-race/problem
-
 const hurdleRace = (maxJump, hurdleHeights) => {
   const maxHeight = hurdleHeights.reduce((maxHeight, hurdleHeight) => {
     const isNewMaxHeight = hurdleHeight > maxHeight;
