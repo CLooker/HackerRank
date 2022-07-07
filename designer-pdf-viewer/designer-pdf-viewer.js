@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/designer-pdf-viewer/problem
-
 const designerPdfViewer = (alphabetHeights, word) => {
   const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
 
