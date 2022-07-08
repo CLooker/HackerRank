@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/utopian-tree/problem
-
 const utopianTree = growthCycleCount => {
   let height = 1;
   for (let growthCycle = 1; growthCycle <= growthCycleCount; growthCycle++) {
