@@ -3,43 +3,36 @@ package biggerisgreater
 func biggerIsGreater(word string) string {
 	chars := []rune(word)
 
-	i := -1
-	for j, char := range chars {
-		if j == 0 {
-			continue
-		}
-
-		if char > chars[j-1] {
-			i = j
+	pivotIdx := -1
+	for i := 1; i < len(chars); i++ {
+		if chars[i] > chars[i-1] {
+			pivotIdx = i - 1
 		}
 	}
 
-	if i == -1 {
+	if pivotIdx == -1 {
 		return "no answer"
 	}
 
-	pivot := chars[i-1]
-
-	j := -1
-	for k, char := range chars {
-		if k >= i && char > pivot {
-			j = k
+	pivot := chars[pivotIdx]
+	pivotIdxNext := -1
+	for i := pivotIdx; i < len(chars); i++ {
+		if chars[i] > pivot {
+			pivotIdxNext = i
 		}
 	}
 
-	chars[i-1] = chars[j]
-	chars[j] = pivot
+	chars[pivotIdx] = chars[pivotIdxNext]
+	chars[pivotIdxNext] = pivot
 
-	var tail []rune
-	for k := len(chars) - 1; k >= i; k-- {
-		tail = append(tail, chars[k])
+	result := ""
+	for i := 0; i <= pivotIdx; i++ {
+		result += string(chars[i])
+	}
+	for i := len(chars) - 1; i > pivotIdx; i-- {
+		result += string(chars[i])
 	}
 
-	var resultChars []rune
-	resultChars = append(resultChars, chars[0:i]...)
-	resultChars = append(resultChars, tail...)
-
-	result := string(resultChars)
 	if result == word {
 		return "no answer"
 	} else {
