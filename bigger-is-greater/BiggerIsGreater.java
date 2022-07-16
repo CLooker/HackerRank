@@ -5,9 +5,7 @@ public class BiggerIsGreater {
 
     int pivotIdx = -1;
     for (int i = 1; i < chars.length; i++) {
-      char ch = chars[i];
-      char charPrev = chars[i - 1];
-      if (ch > charPrev) {
+      if (chars[i] > chars[i - 1]) {
         pivotIdx = i - 1;
       } 
     }
@@ -23,7 +21,6 @@ public class BiggerIsGreater {
         pivotIdxNext = i;
       }
     } 
-
     
     chars[pivotIdx] = chars[pivotIdxNext];
     chars[pivotIdxNext] = pivot;
