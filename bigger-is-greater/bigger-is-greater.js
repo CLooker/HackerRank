@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/bigger-is-greater
-
 const biggerIsGreater = (str) => {
   const NO_ANSWER = 'no answer';
   let chars = [...str];
