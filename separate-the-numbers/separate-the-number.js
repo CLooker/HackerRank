@@ -1,5 +1,3 @@
-// https://www.hackerrank.com/challenges/separate-the-numbers/problem
-
 const getIsOrdered = numStrArr =>
   numStrArr.every((numStr, i) => {
     if (i === numStrArr.length - 1) return true;
